@@ -1,5 +1,4 @@
 # Local development — PostgreSQL only (backend/frontend পরে যোগ করব)
-version: "3.9"
 
 services:
   postgres:
