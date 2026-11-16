@@ -1,0 +1,481 @@
+// DataBridge BD - Prisma Schema
+// Prisma ORM v7 compatible
+// All 23 tables for the data collection marketplace
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // NOTE: In Prisma v7, the connection URL is configured in prisma.config.ts
+  // Do NOT add url = env("DATABASE_URL") here
+}
+
+// ============================================================
+// 1. ROLE
+// ============================================================
+model Role {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+
+  users       User[]
+
+  @@map("roles")
+}
+
+// ============================================================
+// 2. USER
+// ============================================================
+model User {
+  id                String    @id @default(uuid())
+  email             String    @unique
+  passwordHash      String
+  fullName          String
+  phone             String?
+  emailVerified     Boolean   @default(false)
+  emailVerifyToken  String?
+  resetToken        String?
+  resetTokenExpiry  DateTime?
+  isActive          Boolean   @default(true)
+  roleId            String
+  role              Role      @relation(fields: [roleId], references: [id])
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  profile           UserProfile?
+  requests          DataRequest[]
+  messages          Message[]
+  notifications     Notification[]
+  auditLogs         AuditLog[]
+  assignments       ProjectAssignment[]
+  reviews           Review[]
+
+  @@map("users")
+}
+
+// ============================================================
+// 3. USER PROFILE
+// ============================================================
+model UserProfile {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName String?
+  address     String?
+  city        String?
+  country     String?  @default("Bangladesh")
+  avatarUrl   String?
+  bio         String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("user_profiles")
+}
+
+// ============================================================
+// 4. SERVICE
+// ============================================================
+model Service {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  title       String
+  titleBn     String?
+  description String   @db.Text
+  category    String
+  basePrice   Decimal? @db.Decimal(10, 2)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  requests    DataRequest[]
+
+  @@map("services")
+}
+
+// ============================================================
+// 5. DATA REQUEST
+// ============================================================
+model DataRequest {
+  id              String    @id @default(uuid())
+  requestNumber   String    @unique
+  customerId      String
+  customer        User      @relation(fields: [customerId], references: [id])
+  serviceId       String?
+  service         Service?  @relation(fields: [serviceId], references: [id])
+  title           String
+  objective       String    @db.Text
+  dataCategory    String
+  requiredFields  String    @db.Text
+  targetLocation  String
+  targetAudience  String?
+  targetVolume    Int?
+  methodPref      String?
+  dataFormat      String?
+  deadline        DateTime?
+  budgetMin       Decimal?  @db.Decimal(10, 2)
+  budgetMax       Decimal?  @db.Decimal(10, 2)
+  additionalNotes String?   @db.Text
+  status          String    @default("SUBMITTED")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  attachments     DataRequestAttachment[]
+  quotations      Quotation[]
+
+  @@index([customerId])
+  @@index([status])
+  @@map("data_requests")
+}
+
+// ============================================================
+// 6. DATA REQUEST ATTACHMENT
+// ============================================================
+model DataRequestAttachment {
+  id         String      @id @default(uuid())
+  requestId  String
+  request    DataRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  fileName   String
+  fileUrl    String
+  fileType   String
+  fileSize   Int
+  uploadedAt DateTime    @default(now())
+
+  @@index([requestId])
+  @@map("data_request_attachments")
+}
+
+// ============================================================
+// 7. QUOTATION
+// ============================================================
+model Quotation {
+  id          String      @id @default(uuid())
+  quoteNumber String      @unique
+  requestId   String
+  request     DataRequest @relation(fields: [requestId], references: [id])
+  amount      Decimal     @db.Decimal(10, 2)
+  currency    String      @default("BDT")
+  description String      @db.Text
+  validUntil  DateTime
+  status      String      @default("SENT")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  order       Order?
+
+  @@index([requestId])
+  @@map("quotations")
+}
+
+// ============================================================
+// 8. ORDER
+// ============================================================
+model Order {
+  id          String    @id @default(uuid())
+  orderNumber String    @unique
+  quotationId String    @unique
+  quotation   Quotation @relation(fields: [quotationId], references: [id])
+  customerId  String
+  totalAmount Decimal   @db.Decimal(10, 2)
+  currency    String    @default("BDT")
+  status      String    @default("CONFIRMED")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  project     Project?
+  invoice     Invoice?
+
+  @@map("orders")
+}
+
+// ============================================================
+// 9. PROJECT
+// ============================================================
+model Project {
+  id          String    @id @default(uuid())
+  projectCode String    @unique
+  orderId     String    @unique
+  order       Order     @relation(fields: [orderId], references: [id])
+  title       String
+  status      String    @default("RESEARCH_PLANNING")
+  startDate   DateTime?
+  dueDate     DateTime?
+  progress    Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  assignments     ProjectAssignment[]
+  researchPlans   ResearchPlan[]
+  fieldTasks      FieldTask[]
+  datasetMetadata DatasetMetadata[]
+  deliverables    Deliverable[]
+  messages        Message[]
+  review          Review?
+
+  @@index([status])
+  @@map("projects")
+}
+
+// ============================================================
+// 10. PROJECT ASSIGNMENT
+// ============================================================
+model ProjectAssignment {
+  id         String   @id @default(uuid())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  role       String   @default("RESEARCHER")
+  assignedAt DateTime @default(now())
+
+  @@unique([projectId, userId])
+  @@index([userId])
+  @@map("project_assignments")
+}
+
+// ============================================================
+// 11. RESEARCH PLAN
+// ============================================================
+model ResearchPlan {
+  id           String   @id @default(uuid())
+  projectId    String
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  methodology  String   @db.Text
+  samplingPlan String?  @db.Text
+  timeline     String?  @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("research_plans")
+}
+
+// ============================================================
+// 12. FIELD TASK
+// ============================================================
+model FieldTask {
+  id          String   @id @default(uuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title       String
+  description String?  @db.Text
+  location    String?
+  assignedTo  String?
+  status      String   @default("PENDING")
+  dueDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  surveyResponses SurveyResponse[]
+
+  @@index([projectId])
+  @@map("field_tasks")
+}
+
+// ============================================================
+// 13. SURVEY RESPONSE
+// ============================================================
+model SurveyResponse {
+  id           String    @id @default(uuid())
+  fieldTaskId  String
+  fieldTask    FieldTask @relation(fields: [fieldTaskId], references: [id], onDelete: Cascade)
+  respondentId String?
+  responseData String    @db.Text
+  collectedAt  DateTime  @default(now())
+  collectedBy  String?
+  verified     Boolean   @default(false)
+
+  @@index([fieldTaskId])
+  @@map("survey_responses")
+}
+
+// ============================================================
+// 14. DATASET METADATA
+// ============================================================
+model DatasetMetadata {
+  id                  String   @id @default(uuid())
+  projectId           String
+  project             Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name                String
+  description         String?  @db.Text
+  source              String
+  collectionMethod    String?
+  geographicScope     String?
+  license             String?
+  fields              String?  @db.Text
+  verificationProcess String?  @db.Text
+  qualityLimitations  String?  @db.Text
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  versions            DatasetVersion[]
+  qualityReports      DataQualityReport[]
+
+  @@map("dataset_metadata")
+}
+
+// ============================================================
+// 15. DATASET VERSION
+// ============================================================
+model DatasetVersion {
+  id            String          @id @default(uuid())
+  metadataId    String
+  metadata      DatasetMetadata @relation(fields: [metadataId], references: [id], onDelete: Cascade)
+  versionNumber Int
+  fileUrl       String
+  fileType      String
+  fileSize      Int
+  rowCount      Int?
+  createdAt     DateTime        @default(now())
+
+  @@unique([metadataId, versionNumber])
+  @@map("dataset_versions")
+}
+
+// ============================================================
+// 16. DATA QUALITY REPORT
+// ============================================================
+model DataQualityReport {
+  id           String          @id @default(uuid())
+  metadataId   String
+  metadata     DatasetMetadata @relation(fields: [metadataId], references: [id], onDelete: Cascade)
+  completeness Decimal         @db.Decimal(5, 2)
+  validity     Decimal         @db.Decimal(5, 2)
+  uniqueness   Decimal         @db.Decimal(5, 2)
+  consistency  Decimal         @db.Decimal(5, 2)
+  notes        String?         @db.Text
+  createdAt    DateTime        @default(now())
+
+  @@map("data_quality_reports")
+}
+
+// ============================================================
+// 17. DELIVERABLE
+// ============================================================
+model Deliverable {
+  id          String   @id @default(uuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title       String
+  description String?  @db.Text
+  fileUrl     String
+  fileType    String
+  fileSize    Int
+  version     Int      @default(1)
+  uploadedAt  DateTime @default(now())
+  isFinal     Boolean  @default(false)
+
+  @@index([projectId])
+  @@map("deliverables")
+}
+
+// ============================================================
+// 18. MESSAGE
+// ============================================================
+model Message {
+  id            String    @id @default(uuid())
+  projectId     String
+  project       Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  senderId      String
+  sender        User      @relation(fields: [senderId], references: [id])
+  body          String    @db.Text
+  attachmentUrl String?
+  createdAt     DateTime  @default(now())
+  readAt        DateTime?
+
+  @@index([projectId])
+  @@map("messages")
+}
+
+// ============================================================
+// 19. NOTIFICATION
+// ============================================================
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  body      String   @db.Text
+  type      String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId, isRead])
+  @@map("notifications")
+}
+
+// ============================================================
+// 20. INVOICE
+// ============================================================
+model Invoice {
+  id        String    @id @default(uuid())
+  invoiceNo String    @unique
+  orderId   String    @unique
+  order     Order     @relation(fields: [orderId], references: [id])
+  amount    Decimal   @db.Decimal(10, 2)
+  currency  String    @default("BDT")
+  status    String    @default("UNPAID")
+  issuedAt  DateTime  @default(now())
+  dueDate   DateTime?
+  paidAt    DateTime?
+
+  payments  Payment[]
+
+  @@map("invoices")
+}
+
+// ============================================================
+// 21. PAYMENT
+// ============================================================
+model Payment {
+  id            String   @id @default(uuid())
+  invoiceId     String
+  invoice       Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  amount        Decimal  @db.Decimal(10, 2)
+  currency      String   @default("BDT")
+  method        String
+  transactionId String?  @unique
+  status        String   @default("PENDING")
+  paidAt        DateTime?
+
+  @@index([invoiceId])
+  @@map("payments")
+}
+
+// ============================================================
+// 22. REVIEW
+// ============================================================
+model Review {
+  id         String   @id @default(uuid())
+  projectId  String   @unique
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  customerId String
+  customer   User     @relation(fields: [customerId], references: [id])
+  rating     Int
+  comment    String?  @db.Text
+  createdAt  DateTime @default(now())
+
+  @@map("reviews")
+}
+
+// ============================================================
+// 23. AUDIT LOG
+// ============================================================
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  entity    String?
+  entityId  String?
+  metadata  String?  @db.Text
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
