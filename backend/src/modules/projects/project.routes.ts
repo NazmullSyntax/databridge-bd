@@ -6,6 +6,10 @@ const router = Router();
 
 router.use(authenticate);
 
+// Customer routes
+router.get("/customer/my", ProjectController.getCustomerProjects);
+router.get("/customer/:id", ProjectController.getCustomerProjectDetail);
+
 // সবাই নিজের প্রজেক্ট দেখতে পারবে
 router.get("/my", ProjectController.getMyProjects);
 

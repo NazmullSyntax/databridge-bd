@@ -111,6 +111,57 @@ export class ProjectService {
     });
   }
 
+  // কাস্টমারের নিজের প্রজেক্ট দেখা
+  static async getCustomerProjects(customerId: string) {
+    return prisma.project.findMany({
+      where: {
+        order: {
+          customerId,
+        },
+      },
+      include: {
+        order: {
+          include: {
+            quotation: {
+              include: {
+                request: true,
+              },
+            },
+          },
+        },
+        deliverables: {
+          orderBy: { uploadedAt: "desc" },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+  }
+
+  // কাস্টমারের নির্দিষ্ট প্রজেক্টের বিস্তারিত
+  static async getCustomerProjectById(projectId: string, customerId: string) {
+    return prisma.project.findFirst({
+      where: {
+        id: projectId,
+        order: { customerId },
+      },
+      include: {
+        order: {
+          include: {
+            quotation: {
+              include: { request: true },
+            },
+          },
+        },
+        deliverables: {
+          orderBy: { uploadedAt: "desc" },
+        },
+        assignments: {
+          include: { user: { select: { fullName: true, email: true } } },
+        },
+      },
+    });
+  }
+
   // প্রজেক্টের স্ট্যাটাস আপডেট
   static async updateProjectStatus(
     projectId: string,

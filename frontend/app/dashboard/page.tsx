@@ -68,6 +68,14 @@ export default function DashboardPage() {
           My Requests
         </Button>
 
+        <Button
+          render={<Link href="/dashboard/projects" />}
+          className="mt-4 ml-2"
+          variant="outline"
+        >
+          My Projects
+        </Button>
+
         <button
           onClick={() => {
             localStorage.removeItem("token")

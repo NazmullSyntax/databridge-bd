@@ -54,6 +54,34 @@ export class ProjectController {
     }
   }
 
+  static async getCustomerProjects(req: AuthRequest, res: Response) {
+    try {
+      const projects = await ProjectService.getCustomerProjects(
+        req.user!.userId,
+      );
+      return res.status(200).json({ success: true, data: projects });
+    } catch (error: any) {
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  }
+
+  static async getCustomerProjectDetail(req: AuthRequest, res: Response) {
+    try {
+      const project = await ProjectService.getCustomerProjectById(
+        String(req.params.id),
+        req.user!.userId,
+      );
+      if (!project) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Project not found" });
+      }
+      return res.status(200).json({ success: true, data: project });
+    } catch (error: any) {
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  }
+
   static async updateStatus(req: AuthRequest, res: Response) {
     try {
       const { status, progress } = req.body;
