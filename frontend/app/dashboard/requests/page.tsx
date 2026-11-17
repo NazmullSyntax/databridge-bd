@@ -86,9 +86,17 @@ export default function MyRequestsPage() {
                       {new Date(req.createdAt).toLocaleDateString()}
                     </p>
                   </div>
-                  <span className="rounded bg-blue-100 px-2 py-1 text-xs text-blue-700">
-                    {req.status}
-                  </span>
+                  <div className="flex flex-col items-end gap-2">
+                    <span className="rounded bg-blue-100 px-2 py-1 text-xs text-blue-700">
+                      {req.status}
+                    </span>
+                    <Link
+                      href={`/dashboard/requests/${req.id}`}
+                      className="text-sm text-blue-600 hover:underline"
+                    >
+                      View Details →
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}

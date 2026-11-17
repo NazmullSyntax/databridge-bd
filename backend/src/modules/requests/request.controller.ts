@@ -37,4 +37,52 @@ export class RequestController {
       return res.status(500).json({ success: false, message: error.message });
     }
   }
+
+  static async getMyRequestDetail(req: AuthRequest, res: Response) {
+    try {
+      const request = await RequestService.getRequestWithQuotations(
+        String(req.params.id),
+        req.user!.userId,
+      );
+      if (!request) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Request not found" });
+      }
+      return res.status(200).json({ success: true, data: request });
+    } catch (error: any) {
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  }
+
+  static async acceptQuotation(req: AuthRequest, res: Response) {
+    try {
+      const order = await RequestService.acceptQuotation(
+        String(req.params.quotationId),
+        req.user!.userId,
+      );
+      return res.status(200).json({
+        success: true,
+        message: "Quotation accepted. Order created.",
+        data: order,
+      });
+    } catch (error: any) {
+      return res.status(400).json({ success: false, message: error.message });
+    }
+  }
+
+  static async rejectQuotation(req: AuthRequest, res: Response) {
+    try {
+      await RequestService.rejectQuotation(
+        String(req.params.quotationId),
+        req.user!.userId,
+      );
+      return res.status(200).json({
+        success: true,
+        message: "Quotation rejected.",
+      });
+    } catch (error: any) {
+      return res.status(400).json({ success: false, message: error.message });
+    }
+  }
 }

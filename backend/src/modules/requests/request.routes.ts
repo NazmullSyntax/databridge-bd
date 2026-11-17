@@ -8,5 +8,8 @@ router.use(authenticate); // সব রিকোয়েস্টে টোক�
 
 router.post("/", RequestController.create);
 router.get("/my", RequestController.getMyRequests);
+router.get("/:id", RequestController.getMyRequestDetail);
+router.post("/:quotationId/accept", RequestController.acceptQuotation);
+router.post("/:quotationId/reject", RequestController.rejectQuotation);
 
 export default router;

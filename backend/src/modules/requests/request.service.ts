@@ -42,4 +42,79 @@ export class RequestService {
       where: { id, customerId },
     });
   }
+
+  static async getRequestWithQuotations(id: string, customerId: string) {
+    return prisma.dataRequest.findFirst({
+      where: { id, customerId },
+      include: {
+        quotations: {
+          orderBy: { createdAt: "desc" },
+        },
+      },
+    });
+  }
+
+  static async acceptQuotation(quotationId: string, customerId: string) {
+    const quotation = await prisma.quotation.findUnique({
+      where: { id: quotationId },
+      include: { request: true },
+    });
+
+    if (!quotation || quotation.request.customerId !== customerId) {
+      throw new Error("Quotation not found or unauthorized");
+    }
+
+    if (quotation.status !== "SENT") {
+      throw new Error("Quotation is no longer available");
+    }
+
+    const orderCount = await prisma.order.count();
+    const orderNumber = `ORD-2026-${String(orderCount + 1).padStart(4, "0")}`;
+
+    const order = await prisma.order.create({
+      data: {
+        orderNumber,
+        quotationId: quotation.id,
+        customerId,
+        totalAmount: quotation.amount,
+        currency: quotation.currency,
+        status: "CONFIRMED",
+      },
+    });
+
+    await prisma.quotation.update({
+      where: { id: quotationId },
+      data: { status: "ACCEPTED" },
+    });
+
+    await prisma.dataRequest.update({
+      where: { id: quotation.requestId },
+      data: { status: "ORDER_CONFIRMED" },
+    });
+
+    return order;
+  }
+
+  static async rejectQuotation(quotationId: string, customerId: string) {
+    const quotation = await prisma.quotation.findUnique({
+      where: { id: quotationId },
+      include: { request: true },
+    });
+
+    if (!quotation || quotation.request.customerId !== customerId) {
+      throw new Error("Quotation not found or unauthorized");
+    }
+
+    await prisma.quotation.update({
+      where: { id: quotationId },
+      data: { status: "REJECTED" },
+    });
+
+    await prisma.dataRequest.update({
+      where: { id: quotation.requestId },
+      data: { status: "QUOTATION_REJECTED" },
+    });
+
+    return { success: true };
+  }
 }
