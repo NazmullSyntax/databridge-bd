@@ -7,6 +7,7 @@ import requestRoutes from "./modules/requests/request.routes";
 import adminRoutes from "./modules/admin/admin.routes";
 import projectRoutes from "./modules/projects/project.routes";
 import deliverableRoutes from "./modules/deliverables/deliverable.routes";
+import taskRoutes from "./modules/tasks/task.routes";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use("/api/requests", requestRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/deliverables", deliverableRoutes);
+app.use("/api/tasks", taskRoutes);
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/health", (req: Request, res: Response) => {

@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 type Project = {
@@ -94,6 +95,12 @@ export default function TeamDashboard() {
                     />
                   </div>
                 </div>
+                <Link
+                  href={`/team/projects/${p.id}`}
+                  className="mt-3 inline-block text-sm text-blue-600 hover:underline"
+                >
+                  View Tasks &amp; Deliverables →
+                </Link>
                 <div className="mt-3 flex gap-2">
                   <select
                     className="rounded border px-2 py-1 text-sm"
