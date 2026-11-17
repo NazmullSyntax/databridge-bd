@@ -3,6 +3,27 @@ import { prisma } from "../../lib/prisma";
 import { AuthRequest } from "../../middlewares/auth.middleware";
 
 export class AdminController {
+  static async getTeamMembers(req: AuthRequest, res: Response) {
+    try {
+      const teamMembers = await prisma.user.findMany({
+        where: {
+          isActive: true,
+          role: { is: { name: "TEAM" } },
+        },
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+        },
+        orderBy: { fullName: "asc" },
+      });
+
+      return res.status(200).json({ success: true, data: teamMembers });
+    } catch (error: any) {
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  }
+
   static async getAllRequests(req: AuthRequest, res: Response) {
     try {
       const requests = await prisma.dataRequest.findMany({

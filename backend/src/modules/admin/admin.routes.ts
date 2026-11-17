@@ -8,6 +8,7 @@ const router = Router();
 router.use(authenticate);
 router.use(authorize("ADMIN")); // শুধুমাত্র ADMIN রোল ঢুকতে পারবে
 
+router.get("/users/team", AdminController.getTeamMembers);
 router.get("/requests", AdminController.getAllRequests);
 router.get("/requests/:id", AdminController.getRequestById);
 router.post("/requests/:id/quotation", AdminController.createQuotation);

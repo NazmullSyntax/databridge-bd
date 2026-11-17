@@ -44,7 +44,15 @@ export default function AdminDashboard() {
 
   return (
     <div>
-      <h2 className="mb-6 text-2xl font-bold">All Customer Requests</h2>
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="text-2xl font-bold">All Customer Requests</h2>
+        <Link
+          href="/admin/projects"
+          className="text-sm text-blue-600 hover:underline"
+        >
+          View Projects →
+        </Link>
+      </div>
       {requests.length === 0 ? (
         <div className="rounded bg-white p-8 text-center text-gray-500">
           No requests yet.
