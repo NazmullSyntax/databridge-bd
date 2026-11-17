@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 type User = {
   id: string
@@ -58,6 +60,13 @@ export default function DashboardPage() {
         <p className="text-gray-600">Welcome, {user.fullName}!</p>
         <p className="mt-2 text-sm text-gray-500">Email: {user.email}</p>
         <p className="text-sm text-gray-500">Role: {user.role}</p>
+
+        <Button
+          render={<Link href="/dashboard/requests" />}
+          className="mt-4"
+        >
+          My Requests
+        </Button>
 
         <button
           onClick={() => {
