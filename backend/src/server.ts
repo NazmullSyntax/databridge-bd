@@ -4,6 +4,7 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import authRoutes from "./modules/auth/auth.routes";
 import requestRoutes from "./modules/requests/request.routes";
+import adminRoutes from "./modules/admin/admin.routes";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/requests", requestRoutes);
+app.use("/api/admin", adminRoutes);
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/health", (req: Request, res: Response) => {
