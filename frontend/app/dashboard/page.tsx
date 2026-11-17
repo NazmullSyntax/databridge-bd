@@ -1,60 +1,54 @@
 "use client"
 
-import { useEffect, useMemo, useSyncExternalStore } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 
-type DashboardUser = {
-  fullName: string
+type User = {
+  id: string
   email: string
+  fullName: string
   role: string
-}
-
-function subscribeToAuthChanges(onChange: () => void) {
-  window.addEventListener("storage", onChange)
-  return () => window.removeEventListener("storage", onChange)
-}
-
-function getAuthSnapshot() {
-  return localStorage.getItem("token")
-    ? localStorage.getItem("user")
-    : null
-}
-
-function isDashboardUser(value: unknown): value is DashboardUser {
-  if (typeof value !== "object" || value === null) return false
-
-  return (
-    "fullName" in value &&
-    typeof value.fullName === "string" &&
-    "email" in value &&
-    typeof value.email === "string" &&
-    "role" in value &&
-    typeof value.role === "string"
-  )
 }
 
 export default function DashboardPage() {
   const router = useRouter()
-  const userJson = useSyncExternalStore(
-    subscribeToAuthChanges,
-    getAuthSnapshot,
-    () => null,
-  )
-  const user = useMemo(() => {
-    if (!userJson) return null
-
-    try {
-      const parsed: unknown = JSON.parse(userJson)
-      return isDashboardUser(parsed) ? parsed : null
-    } catch {
-      return null
-    }
-  }, [userJson])
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!user) router.push("/login")
-  }, [router, user])
+    const token = localStorage.getItem("token")
+    if (!token) {
+      router.push("/login")
+      return
+    }
 
+    const verifyToken = async () => {
+      try {
+        const apiUrl =
+          process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
+        const res = await fetch(`${apiUrl}/auth/me`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        const data = await res.json()
+
+        if (!data.success) {
+          throw new Error("Invalid token")
+        }
+
+        setUser(data.data)
+      } catch {
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
+        router.push("/login")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    verifyToken()
+  }, [router])
+
+  if (loading) return <div className="p-8 text-center">Loading...</div>
   if (!user) return null
 
   return (
@@ -64,6 +58,17 @@ export default function DashboardPage() {
         <p className="text-gray-600">Welcome, {user.fullName}!</p>
         <p className="mt-2 text-sm text-gray-500">Email: {user.email}</p>
         <p className="text-sm text-gray-500">Role: {user.role}</p>
+
+        <button
+          onClick={() => {
+            localStorage.removeItem("token")
+            localStorage.removeItem("user")
+            router.push("/login")
+          }}
+          className="mt-6 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+        >
+          Logout
+        </button>
       </div>
     </div>
   )

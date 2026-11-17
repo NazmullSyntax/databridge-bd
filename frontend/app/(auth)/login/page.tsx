@@ -17,7 +17,9 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const apiUrl =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
+      const res = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -25,16 +27,16 @@ export default function LoginPage() {
       const data = await res.json()
 
       if (!data.success) {
-        throw new Error(data.message)
+        throw new Error(data.message || "Invalid email or password")
       }
 
-      // Store token (for now, localStorage — later we'll use httpOnly cookies)
       localStorage.setItem("token", data.data.token)
       localStorage.setItem("user", JSON.stringify(data.data.user))
 
       router.push("/dashboard")
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Login failed")
+      const errorMessage = err instanceof Error ? err.message : "Login failed"
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
@@ -46,8 +48,8 @@ export default function LoginPage() {
         <h1 className="mb-6 text-center text-2xl font-bold">Login</h1>
 
         {error && (
-          <div className="mb-4 rounded bg-red-50 p-3 text-sm text-red-600">
-            {error}
+          <div className="mb-4 rounded bg-red-50 p-3 text-center text-sm font-medium text-red-600">
+            ❌ {error}
           </div>
         )}
 

@@ -14,15 +14,19 @@ export default function RegisterPage() {
     phone: "",
   })
   const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
+    setSuccess("")
     setLoading(true)
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/register", {
+      const apiUrl =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
+      const res = await fetch(`${apiUrl}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -30,13 +34,18 @@ export default function RegisterPage() {
       const data = await res.json()
 
       if (!data.success) {
-        throw new Error(data.message)
+        throw new Error(data.message || "Registration failed")
       }
 
-      router.push("/login")
+      setSuccess("✅ Account created successfully! Redirecting to login...")
+
+      setTimeout(() => {
+        router.push("/login")
+      }, 2000)
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Registration failed")
-    } finally {
+      const errorMessage =
+        err instanceof Error ? err.message : "Something went wrong"
+      setError(errorMessage)
       setLoading(false)
     }
   }
@@ -48,7 +57,13 @@ export default function RegisterPage() {
 
         {error && (
           <div className="mb-4 rounded bg-red-50 p-3 text-sm text-red-600">
-            {error}
+            ❌ {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="mb-4 rounded bg-green-50 p-3 text-center text-sm font-medium text-green-600">
+            {success}
           </div>
         )}
 
@@ -101,7 +116,7 @@ export default function RegisterPage() {
           </div>
 
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Creating account..." : "Register"}
+            {loading ? "Creating..." : "Register"}
           </Button>
         </form>
 

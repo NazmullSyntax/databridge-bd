@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import { prisma } from "../../lib/prisma";
 import { AuthService } from "./auth.service";
 import { registerSchema, loginSchema } from "./auth.schema";
 
@@ -48,6 +50,40 @@ export class AuthController {
         success: false,
         message: error.message || "Login failed",
       });
+    }
+  }
+
+  static async getMe(req: Request, res: Response) {
+    try {
+      const authHeader = req.headers.authorization;
+      if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ success: false, message: "No token provided" });
+      }
+
+      const token = authHeader.split(" ")[1];
+      const secret = process.env.JWT_SECRET || "default-secret-change-me";
+      const decoded = jwt.verify(token, secret) as { userId: string };
+
+      const user = await prisma.user.findUnique({
+        where: { id: decoded.userId },
+        include: { role: true },
+      });
+
+      if (!user) {
+        return res.status(404).json({ success: false, message: "User not found" });
+      }
+
+      return res.status(200).json({
+        success: true,
+        data: {
+          id: user.id,
+          email: user.email,
+          fullName: user.fullName,
+          role: user.role.name,
+        },
+      });
+    } catch (error) {
+      return res.status(401).json({ success: false, message: "Invalid or expired token" });
     }
   }
 }
