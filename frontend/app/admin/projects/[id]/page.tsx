@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
+import ProjectChat from "@/components/ProjectChat"
 
 type User = {
   id: string
@@ -493,6 +494,10 @@ export default function AdminProjectDetailPage() {
             ))}
           </div>
         )}
+      </div>
+
+      <div className="mt-6">
+        <ProjectChat projectId={String(id)} />
       </div>
     </div>
   )

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
+import ProjectChat from "@/components/ProjectChat"
 
 type Task = {
   id: string
@@ -173,6 +174,10 @@ export default function TeamProjectDetail() {
               ))}
             </div>
           )}
+        </div>
+
+        <div className="mt-6">
+          <ProjectChat projectId={String(params.id)} />
         </div>
       </div>
     </div>
