@@ -3,6 +3,8 @@
 import { useEffect, useState, type ReactNode } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
+import NotificationBell from "@/components/NotificationBell"
+import GlobalSearch from "@/components/GlobalSearch"
 
 type AdminUser = {
   fullName: string
@@ -133,16 +135,6 @@ export default function AdminLayout({
             </p>
             <p className="truncate text-xs text-slate-500">{user.email}</p>
           </div>
-          <button
-            onClick={() => {
-              localStorage.removeItem("token")
-              localStorage.removeItem("user")
-              router.push("/login")
-            }}
-            className="w-full rounded-lg px-4 py-2 text-left text-sm text-red-600 transition-colors hover:bg-red-50"
-          >
-            Logout
-          </button>
         </div>
       </aside>
 
@@ -161,6 +153,21 @@ export default function AdminLayout({
             <h1 className="text-xl font-bold text-slate-900">
               DataBridge BD - Admin
             </h1>
+            <div className="ml-auto flex items-center gap-4">
+              <GlobalSearch />
+              <NotificationBell />
+              <button
+                type="button"
+                onClick={() => {
+                  localStorage.removeItem("token")
+                  localStorage.removeItem("user")
+                  router.push("/login")
+                }}
+                className="rounded-lg px-4 py-2 text-sm text-red-600 transition-colors hover:bg-red-50"
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </header>
         <div className="mx-auto max-w-5xl p-8">{children}</div>
