@@ -12,6 +12,7 @@ import reviewRoutes from "./modules/reviews/review.routes";
 import teamRoutes from "./modules/teams/team.routes";
 import submissionRoutes from "./modules/submissions/submission.routes";
 import notificationRoutes from "./modules/notifications/notification.routes";
+import auditRoutes from "./modules/audit/audit.routes";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/teams", teamRoutes);
 app.use("/api/submissions", submissionRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api/audit", auditRoutes);
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/health", (req: Request, res: Response) => {

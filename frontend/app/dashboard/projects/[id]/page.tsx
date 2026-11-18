@@ -14,6 +14,14 @@ type Deliverable = {
   uploadedAt: string
 }
 
+type Submission = {
+  id: string
+  title: string
+  version: number
+  fileUrl: string | null
+  customerApproved: boolean | null
+}
+
 type Project = {
   id: string
   projectCode: string
@@ -29,8 +37,14 @@ export default function CustomerProjectDetail() {
   const params = useParams<{ id: string }>()
   const router = useRouter()
   const [project, setProject] = useState<Project | null>(null)
+  const [submissions, setSubmissions] = useState<Submission[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+  const [submissionError, setSubmissionError] = useState("")
+  const [submissionMessage, setSubmissionMessage] = useState("")
+  const [reviewingSubmissionId, setReviewingSubmissionId] = useState<
+    string | null
+  >(null)
   const [reviewSubmitted, setReviewSubmitted] = useState(false)
   const [rating, setRating] = useState(5)
   const [comment, setComment] = useState("")
@@ -60,6 +74,31 @@ export default function CustomerProjectDetail() {
           throw new Error(data.message || "Failed to load project")
         }
         setProject(data.data)
+
+        try {
+          const submissionsRes = await fetch(
+            `${apiUrl}/submissions/customer/project/${params.id}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            },
+          )
+          const submissionsData = await submissionsRes.json()
+          if (!submissionsRes.ok || !submissionsData.success) {
+            throw new Error(
+              submissionsData.message || "Failed to load submissions",
+            )
+          }
+          if (!Array.isArray(submissionsData.data)) {
+            throw new Error("Submissions response was invalid")
+          }
+          setSubmissions(submissionsData.data)
+        } catch (err: unknown) {
+          setSubmissionError(
+            err instanceof Error
+              ? err.message
+              : "Failed to load submissions",
+          )
+        }
       } catch (err: unknown) {
         setError(err instanceof Error ? err.message : "Failed to load project")
       } finally {
@@ -69,6 +108,61 @@ export default function CustomerProjectDetail() {
 
     fetchProject()
   }, [params.id, router])
+
+  const handleCustomerReview = async (
+    submissionId: string,
+    approved: boolean,
+  ) => {
+    const notes = window.prompt("Add notes (optional):")
+    if (notes === null) return
+
+    const token = localStorage.getItem("token")
+    if (!token) {
+      router.push("/login")
+      return
+    }
+
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
+    setReviewingSubmissionId(submissionId)
+    setSubmissionError("")
+    setSubmissionMessage("")
+
+    try {
+      const res = await fetch(
+        `${apiUrl}/submissions/${submissionId}/customer-review`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ approved, notes }),
+        },
+      )
+      const data = await res.json()
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || "Failed to submit your review")
+      }
+
+      setSubmissions((currentSubmissions) =>
+        currentSubmissions.map((submission) =>
+          submission.id === submissionId
+            ? { ...submission, customerApproved: approved }
+            : submission,
+        ),
+      )
+      setSubmissionMessage("Submission review saved.")
+    } catch (err: unknown) {
+      setSubmissionError(
+        err instanceof Error
+          ? err.message
+          : "Failed to submit your review",
+      )
+    } finally {
+      setReviewingSubmissionId(null)
+    }
+  }
 
   const handleReviewSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -210,6 +304,97 @@ export default function CustomerProjectDetail() {
                       </a>
                     </div>
                   </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-6 rounded-lg bg-white p-4 shadow">
+          <h2 className="mb-3 font-semibold">Review Submissions</h2>
+          {submissionError && (
+            <p
+              role="alert"
+              className="mb-3 rounded bg-red-50 p-3 text-sm text-red-700"
+            >
+              {submissionError}
+            </p>
+          )}
+          {submissionMessage && (
+            <p
+              role="status"
+              className="mb-3 rounded bg-green-50 p-3 text-sm text-green-700"
+            >
+              {submissionMessage}
+            </p>
+          )}
+          {submissions.length === 0 ? (
+            <p className="text-sm text-slate-500">
+              No submissions to review yet.
+            </p>
+          ) : (
+            <div className="space-y-3">
+              {submissions.map((submission) => (
+                <div key={submission.id} className="rounded-lg border p-3">
+                  <div className="flex justify-between gap-3">
+                    <div>
+                      <h3 className="font-medium">{submission.title}</h3>
+                      <p className="text-sm text-slate-500">
+                        Version {submission.version}
+                      </p>
+                    </div>
+                    <span
+                      className={`h-fit rounded-full px-2 py-1 text-xs ${
+                        submission.customerApproved === true
+                          ? "bg-green-100 text-green-700"
+                          : submission.customerApproved === false
+                            ? "bg-red-100 text-red-700"
+                            : "bg-yellow-100 text-yellow-700"
+                      }`}
+                    >
+                      {submission.customerApproved === true
+                        ? "Approved"
+                        : submission.customerApproved === false
+                          ? "Rejected"
+                          : "Pending"}
+                    </span>
+                  </div>
+                  {submission.fileUrl && (
+                    <a
+                      href={submission.fileUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-1 inline-block text-sm text-blue-600 hover:underline"
+                    >
+                      View File
+                    </a>
+                  )}
+                  {submission.customerApproved === null && (
+                    <div className="mt-3 flex gap-2">
+                      <button
+                        type="button"
+                        disabled={reviewingSubmissionId !== null}
+                        onClick={() =>
+                          handleCustomerReview(submission.id, true)
+                        }
+                        className="rounded-lg bg-green-600 px-4 py-1.5 text-sm text-white hover:bg-green-700 disabled:opacity-50"
+                      >
+                        {reviewingSubmissionId === submission.id
+                          ? "Submitting..."
+                          : "Approve"}
+                      </button>
+                      <button
+                        type="button"
+                        disabled={reviewingSubmissionId !== null}
+                        onClick={() =>
+                          handleCustomerReview(submission.id, false)
+                        }
+                        className="rounded-lg bg-red-600 px-4 py-1.5 text-sm text-white hover:bg-red-700 disabled:opacity-50"
+                      >
+                        Reject
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

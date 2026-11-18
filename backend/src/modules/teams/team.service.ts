@@ -50,6 +50,14 @@ export class TeamService {
     });
   }
 
+  // টিম লিডার সেট করা
+  static async setTeamLeader(teamId: string, leaderId: string) {
+    return prisma.team.update({
+      where: { id: teamId },
+      data: { leaderId },
+    });
+  }
+
   // টিম ডিটেইলস
   static async getTeamById(teamId: string) {
     return prisma.team.findUnique({

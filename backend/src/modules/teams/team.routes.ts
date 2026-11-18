@@ -9,6 +9,7 @@ router.post("/", authorize("ADMIN"), TeamController.create);
 router.get("/", TeamController.getAll);
 router.get("/:id", TeamController.getById);
 router.post("/add-member", authorize("ADMIN"), TeamController.addMember);
+router.patch("/set-leader", authorize("ADMIN"), TeamController.setLeader);
 router.delete(
   "/:teamId/members/:userId",
   authorize("ADMIN"),

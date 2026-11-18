@@ -41,6 +41,16 @@ export class TeamController {
     }
   }
 
+  static async setLeader(req: AuthRequest, res: Response) {
+    try {
+      const { teamId, leaderId } = req.body;
+      const team = await TeamService.setTeamLeader(teamId, leaderId);
+      return res.status(200).json({ success: true, data: team });
+    } catch (error: any) {
+      return res.status(400).json({ success: false, message: error.message });
+    }
+  }
+
   static async removeMember(req: AuthRequest, res: Response) {
     try {
       const { teamId, userId } = req.params;
