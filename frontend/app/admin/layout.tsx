@@ -89,6 +89,7 @@ export default function AdminLayout({
     { label: "Tasks", href: "/admin/tasks/new", icon: "✅" },
     { label: "Submissions", href: "/admin/submissions", icon: "📤" },
     { label: "Audit Logs", href: "/admin/audit", icon: "📜" },
+    { label: "Invoices", href: "/admin/invoices", icon: "💳" },
   ]
 
   return (

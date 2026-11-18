@@ -14,6 +14,7 @@ import submissionRoutes from "./modules/submissions/submission.routes";
 import notificationRoutes from "./modules/notifications/notification.routes";
 import auditRoutes from "./modules/audit/audit.routes";
 import messageRoutes from "./modules/messages/message.routes";
+import invoiceRoutes from "./modules/invoices/invoice.routes";
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.use("/api/submissions", submissionRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/audit", auditRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/invoices", invoiceRoutes);
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/health", (req: Request, res: Response) => {
