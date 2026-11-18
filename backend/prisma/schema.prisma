@@ -55,6 +55,8 @@ model User {
   reviews           Review[]
   ledTeams          Team[]              @relation("TeamLeader")
   teamMembers       TeamMember[]        @relation("TeamMembers")
+  submissions       Submission[]        @relation("SubmissionBy")
+  reviewedSubmissions Submission[]      @relation("SubmissionReviewer")
 
   @@map("users")
 }
@@ -216,6 +218,7 @@ model Project {
   deliverables    Deliverable[]
   messages        Message[]
   review          Review?
+  submissions     Submission[]
 
   @@index([status])
   @@map("projects")
@@ -271,6 +274,7 @@ model FieldTask {
   updatedAt   DateTime @updatedAt
 
   surveyResponses SurveyResponse[]
+  submissions     Submission[]
 
   @@index([projectId])
   @@map("field_tasks")
@@ -516,4 +520,37 @@ model TeamMember {
 
   @@unique([teamId, userId])
   @@map("team_members")
+}
+
+// ============================================================
+// 26. SUBMISSION (Employee Work Submission)
+// ============================================================
+model Submission {
+  id               String     @id @default(uuid())
+  projectId        String
+  project          Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  taskId           String?
+  task             FieldTask? @relation(fields: [taskId], references: [id])
+  submittedBy      String
+  submitter        User       @relation("SubmissionBy", fields: [submittedBy], references: [id])
+  title            String
+  description      String?    @db.Text
+  fileUrl          String?
+  fileType         String?
+  fileSize         Int?
+  version          Int        @default(1)
+  status           String     @default("SUBMITTED") // SUBMITTED, UNDER_REVIEW, APPROVED, REJECTED, REVISION_REQUESTED
+  reviewedBy       String?
+  reviewer         User?      @relation("SubmissionReviewer", fields: [reviewedBy], references: [id])
+  reviewedAt       DateTime?
+  reviewNotes      String?    @db.Text
+  customerApproved Boolean?
+  customerNotes    String?    @db.Text
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+
+  @@index([projectId])
+  @@index([submittedBy])
+  @@index([status])
+  @@map("submissions")
 }

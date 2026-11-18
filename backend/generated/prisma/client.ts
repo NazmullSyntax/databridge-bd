@@ -164,3 +164,8 @@ export type Team = Prisma.TeamModel
  * 
  */
 export type TeamMember = Prisma.TeamMemberModel
+/**
+ * Model Submission
+ * 
+ */
+export type Submission = Prisma.SubmissionModel

@@ -75,7 +75,8 @@ export const ModelName = {
   Review: 'Review',
   AuditLog: 'AuditLog',
   Team: 'Team',
-  TeamMember: 'TeamMember'
+  TeamMember: 'TeamMember',
+  Submission: 'Submission'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -462,6 +463,30 @@ export const TeamMemberScalarFieldEnum = {
 } as const
 
 export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
+
+
+export const SubmissionScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  taskId: 'taskId',
+  submittedBy: 'submittedBy',
+  title: 'title',
+  description: 'description',
+  fileUrl: 'fileUrl',
+  fileType: 'fileType',
+  fileSize: 'fileSize',
+  version: 'version',
+  status: 'status',
+  reviewedBy: 'reviewedBy',
+  reviewedAt: 'reviewedAt',
+  reviewNotes: 'reviewNotes',
+  customerApproved: 'customerApproved',
+  customerNotes: 'customerNotes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SubmissionScalarFieldEnum = (typeof SubmissionScalarFieldEnum)[keyof typeof SubmissionScalarFieldEnum]
 
 
 export const SortOrder = {

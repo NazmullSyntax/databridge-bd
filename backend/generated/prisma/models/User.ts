@@ -256,6 +256,8 @@ export type UserWhereInput = {
   reviews?: Prisma.ReviewListRelationFilter
   ledTeams?: Prisma.TeamListRelationFilter
   teamMembers?: Prisma.TeamMemberListRelationFilter
+  submissions?: Prisma.SubmissionListRelationFilter
+  reviewedSubmissions?: Prisma.SubmissionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -282,6 +284,8 @@ export type UserOrderByWithRelationInput = {
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
   ledTeams?: Prisma.TeamOrderByRelationAggregateInput
   teamMembers?: Prisma.TeamMemberOrderByRelationAggregateInput
+  submissions?: Prisma.SubmissionOrderByRelationAggregateInput
+  reviewedSubmissions?: Prisma.SubmissionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -311,6 +315,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   reviews?: Prisma.ReviewListRelationFilter
   ledTeams?: Prisma.TeamListRelationFilter
   teamMembers?: Prisma.TeamMemberListRelationFilter
+  submissions?: Prisma.SubmissionListRelationFilter
+  reviewedSubmissions?: Prisma.SubmissionListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -374,6 +380,8 @@ export type UserCreateInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -399,6 +407,8 @@ export type UserUncheckedCreateInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUpdateInput = {
@@ -424,6 +434,8 @@ export type UserUpdateInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -449,6 +461,8 @@ export type UserUncheckedUpdateInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUncheckedUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -746,6 +760,36 @@ export type UserUpdateOneRequiredWithoutTeamMembersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTeamMembersInput, Prisma.UserUpdateWithoutTeamMembersInput>, Prisma.UserUncheckedUpdateWithoutTeamMembersInput>
 }
 
+export type UserCreateNestedOneWithoutSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSubmissionsInput, Prisma.UserUncheckedCreateWithoutSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSubmissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReviewedSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedSubmissionsInput, Prisma.UserUncheckedCreateWithoutReviewedSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedSubmissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSubmissionsInput, Prisma.UserUncheckedCreateWithoutSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSubmissionsInput
+  upsert?: Prisma.UserUpsertWithoutSubmissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSubmissionsInput, Prisma.UserUpdateWithoutSubmissionsInput>, Prisma.UserUncheckedUpdateWithoutSubmissionsInput>
+}
+
+export type UserUpdateOneWithoutReviewedSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedSubmissionsInput, Prisma.UserUncheckedCreateWithoutReviewedSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedSubmissionsInput
+  upsert?: Prisma.UserUpsertWithoutReviewedSubmissionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewedSubmissionsInput, Prisma.UserUpdateWithoutReviewedSubmissionsInput>, Prisma.UserUncheckedUpdateWithoutReviewedSubmissionsInput>
+}
+
 export type UserCreateWithoutRoleInput = {
   id?: string
   email: string
@@ -768,6 +812,8 @@ export type UserCreateWithoutRoleInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutRoleInput = {
@@ -792,6 +838,8 @@ export type UserUncheckedCreateWithoutRoleInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutRoleInput = {
@@ -861,6 +909,8 @@ export type UserCreateWithoutProfileInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -885,6 +935,8 @@ export type UserUncheckedCreateWithoutProfileInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -925,6 +977,8 @@ export type UserUpdateWithoutProfileInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -949,6 +1003,8 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUncheckedUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateWithoutRequestsInput = {
@@ -973,6 +1029,8 @@ export type UserCreateWithoutRequestsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutRequestsInput = {
@@ -997,6 +1055,8 @@ export type UserUncheckedCreateWithoutRequestsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutRequestsInput = {
@@ -1037,6 +1097,8 @@ export type UserUpdateWithoutRequestsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestsInput = {
@@ -1061,6 +1123,8 @@ export type UserUncheckedUpdateWithoutRequestsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUncheckedUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateWithoutAssignmentsInput = {
@@ -1085,6 +1149,8 @@ export type UserCreateWithoutAssignmentsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutAssignmentsInput = {
@@ -1109,6 +1175,8 @@ export type UserUncheckedCreateWithoutAssignmentsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutAssignmentsInput = {
@@ -1149,6 +1217,8 @@ export type UserUpdateWithoutAssignmentsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignmentsInput = {
@@ -1173,6 +1243,8 @@ export type UserUncheckedUpdateWithoutAssignmentsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUncheckedUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateWithoutMessagesInput = {
@@ -1197,6 +1269,8 @@ export type UserCreateWithoutMessagesInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -1221,6 +1295,8 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -1261,6 +1337,8 @@ export type UserUpdateWithoutMessagesInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -1285,6 +1363,8 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUncheckedUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -1309,6 +1389,8 @@ export type UserCreateWithoutNotificationsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -1333,6 +1415,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1373,6 +1457,8 @@ export type UserUpdateWithoutNotificationsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -1397,6 +1483,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUncheckedUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
@@ -1421,6 +1509,8 @@ export type UserCreateWithoutReviewsInput = {
   assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutUserInput
   ledTeams?: Prisma.TeamCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -1445,6 +1535,8 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutUserInput
   ledTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -1485,6 +1577,8 @@ export type UserUpdateWithoutReviewsInput = {
   assignments?: Prisma.ProjectAssignmentUpdateManyWithoutUserNestedInput
   ledTeams?: Prisma.TeamUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -1509,6 +1603,8 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutUserNestedInput
   ledTeams?: Prisma.TeamUncheckedUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -1533,6 +1629,8 @@ export type UserCreateWithoutAuditLogsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -1557,6 +1655,8 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutLeaderInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -1597,6 +1697,8 @@ export type UserUpdateWithoutAuditLogsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -1621,6 +1723,8 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUncheckedUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateWithoutLedTeamsInput = {
@@ -1645,6 +1749,8 @@ export type UserCreateWithoutLedTeamsInput = {
   assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCustomerInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutLedTeamsInput = {
@@ -1669,6 +1775,8 @@ export type UserUncheckedCreateWithoutLedTeamsInput = {
   assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCustomerInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutLedTeamsInput = {
@@ -1709,6 +1817,8 @@ export type UserUpdateWithoutLedTeamsInput = {
   assignments?: Prisma.ProjectAssignmentUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCustomerNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLedTeamsInput = {
@@ -1733,6 +1843,8 @@ export type UserUncheckedUpdateWithoutLedTeamsInput = {
   assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCustomerNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateWithoutTeamMembersInput = {
@@ -1757,6 +1869,8 @@ export type UserCreateWithoutTeamMembersInput = {
   assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamCreateNestedManyWithoutLeaderInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutTeamMembersInput = {
@@ -1781,6 +1895,8 @@ export type UserUncheckedCreateWithoutTeamMembersInput = {
   assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCustomerInput
   ledTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutLeaderInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutSubmitterInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutTeamMembersInput = {
@@ -1821,6 +1937,8 @@ export type UserUpdateWithoutTeamMembersInput = {
   assignments?: Prisma.ProjectAssignmentUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUpdateManyWithoutLeaderNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeamMembersInput = {
@@ -1845,6 +1963,248 @@ export type UserUncheckedUpdateWithoutTeamMembersInput = {
   assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUncheckedUpdateManyWithoutLeaderNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserCreateWithoutSubmissionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  fullName: string
+  phone?: string | null
+  emailVerified?: boolean
+  emailVerifyToken?: string | null
+  resetToken?: string | null
+  resetTokenExpiry?: Date | string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  requests?: Prisma.DataRequestCreateNestedManyWithoutCustomerInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutCustomerInput
+  ledTeams?: Prisma.TeamCreateNestedManyWithoutLeaderInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  reviewedSubmissions?: Prisma.SubmissionCreateNestedManyWithoutReviewerInput
+}
+
+export type UserUncheckedCreateWithoutSubmissionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  fullName: string
+  phone?: string | null
+  emailVerified?: boolean
+  emailVerifyToken?: string | null
+  resetToken?: string | null
+  resetTokenExpiry?: Date | string | null
+  isActive?: boolean
+  roleId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  requests?: Prisma.DataRequestUncheckedCreateNestedManyWithoutCustomerInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCustomerInput
+  ledTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutLeaderInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutReviewerInput
+}
+
+export type UserCreateOrConnectWithoutSubmissionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSubmissionsInput, Prisma.UserUncheckedCreateWithoutSubmissionsInput>
+}
+
+export type UserCreateWithoutReviewedSubmissionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  fullName: string
+  phone?: string | null
+  emailVerified?: boolean
+  emailVerifyToken?: string | null
+  resetToken?: string | null
+  resetTokenExpiry?: Date | string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  requests?: Prisma.DataRequestCreateNestedManyWithoutCustomerInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutCustomerInput
+  ledTeams?: Prisma.TeamCreateNestedManyWithoutLeaderInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutSubmitterInput
+}
+
+export type UserUncheckedCreateWithoutReviewedSubmissionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  fullName: string
+  phone?: string | null
+  emailVerified?: boolean
+  emailVerifyToken?: string | null
+  resetToken?: string | null
+  resetTokenExpiry?: Date | string | null
+  isActive?: boolean
+  roleId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  requests?: Prisma.DataRequestUncheckedCreateNestedManyWithoutCustomerInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCustomerInput
+  ledTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutLeaderInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutSubmitterInput
+}
+
+export type UserCreateOrConnectWithoutReviewedSubmissionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedSubmissionsInput, Prisma.UserUncheckedCreateWithoutReviewedSubmissionsInput>
+}
+
+export type UserUpsertWithoutSubmissionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSubmissionsInput, Prisma.UserUncheckedUpdateWithoutSubmissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSubmissionsInput, Prisma.UserUncheckedCreateWithoutSubmissionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSubmissionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSubmissionsInput, Prisma.UserUncheckedUpdateWithoutSubmissionsInput>
+}
+
+export type UserUpdateWithoutSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  requests?: Prisma.DataRequestUpdateManyWithoutCustomerNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.ProjectAssignmentUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutCustomerNestedInput
+  ledTeams?: Prisma.TeamUpdateManyWithoutLeaderNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  roleId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  requests?: Prisma.DataRequestUncheckedUpdateManyWithoutCustomerNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCustomerNestedInput
+  ledTeams?: Prisma.TeamUncheckedUpdateManyWithoutLeaderNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserUpsertWithoutReviewedSubmissionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewedSubmissionsInput, Prisma.UserUncheckedUpdateWithoutReviewedSubmissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedSubmissionsInput, Prisma.UserUncheckedCreateWithoutReviewedSubmissionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewedSubmissionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewedSubmissionsInput, Prisma.UserUncheckedUpdateWithoutReviewedSubmissionsInput>
+}
+
+export type UserUpdateWithoutReviewedSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  requests?: Prisma.DataRequestUpdateManyWithoutCustomerNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.ProjectAssignmentUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutCustomerNestedInput
+  ledTeams?: Prisma.TeamUpdateManyWithoutLeaderNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutSubmitterNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewedSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  roleId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  requests?: Prisma.DataRequestUncheckedUpdateManyWithoutCustomerNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCustomerNestedInput
+  ledTeams?: Prisma.TeamUncheckedUpdateManyWithoutLeaderNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
 }
 
 export type UserCreateManyRoleInput = {
@@ -1884,6 +2244,8 @@ export type UserUpdateWithoutRoleInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRoleInput = {
@@ -1908,6 +2270,8 @@ export type UserUncheckedUpdateWithoutRoleInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCustomerNestedInput
   ledTeams?: Prisma.TeamUncheckedUpdateManyWithoutLeaderNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
+  reviewedSubmissions?: Prisma.SubmissionUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -1939,6 +2303,8 @@ export type UserCountOutputType = {
   reviews: number
   ledTeams: number
   teamMembers: number
+  submissions: number
+  reviewedSubmissions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1950,6 +2316,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   reviews?: boolean | UserCountOutputTypeCountReviewsArgs
   ledTeams?: boolean | UserCountOutputTypeCountLedTeamsArgs
   teamMembers?: boolean | UserCountOutputTypeCountTeamMembersArgs
+  submissions?: boolean | UserCountOutputTypeCountSubmissionsArgs
+  reviewedSubmissions?: boolean | UserCountOutputTypeCountReviewedSubmissionsArgs
 }
 
 /**
@@ -2018,6 +2386,20 @@ export type UserCountOutputTypeCountTeamMembersArgs<ExtArgs extends runtime.Type
   where?: Prisma.TeamMemberWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubmissionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewedSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubmissionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2043,6 +2425,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   ledTeams?: boolean | Prisma.User$ledTeamsArgs<ExtArgs>
   teamMembers?: boolean | Prisma.User$teamMembersArgs<ExtArgs>
+  submissions?: boolean | Prisma.User$submissionsArgs<ExtArgs>
+  reviewedSubmissions?: boolean | Prisma.User$reviewedSubmissionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2108,6 +2492,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   ledTeams?: boolean | Prisma.User$ledTeamsArgs<ExtArgs>
   teamMembers?: boolean | Prisma.User$teamMembersArgs<ExtArgs>
+  submissions?: boolean | Prisma.User$submissionsArgs<ExtArgs>
+  reviewedSubmissions?: boolean | Prisma.User$reviewedSubmissionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2130,6 +2516,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
     ledTeams: Prisma.$TeamPayload<ExtArgs>[]
     teamMembers: Prisma.$TeamMemberPayload<ExtArgs>[]
+    submissions: Prisma.$SubmissionPayload<ExtArgs>[]
+    reviewedSubmissions: Prisma.$SubmissionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2549,6 +2937,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ledTeams<T extends Prisma.User$ledTeamsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ledTeamsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   teamMembers<T extends Prisma.User$teamMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$teamMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  submissions<T extends Prisma.User$submissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewedSubmissions<T extends Prisma.User$reviewedSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3200,6 +3590,54 @@ export type User$teamMembersArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.TeamMemberScalarFieldEnum | Prisma.TeamMemberScalarFieldEnum[]
+}
+
+/**
+ * User.submissions
+ */
+export type User$submissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Submission
+   */
+  select?: Prisma.SubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Submission
+   */
+  omit?: Prisma.SubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubmissionInclude<ExtArgs> | null
+  where?: Prisma.SubmissionWhereInput
+  orderBy?: Prisma.SubmissionOrderByWithRelationInput | Prisma.SubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.SubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SubmissionScalarFieldEnum | Prisma.SubmissionScalarFieldEnum[]
+}
+
+/**
+ * User.reviewedSubmissions
+ */
+export type User$reviewedSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Submission
+   */
+  select?: Prisma.SubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Submission
+   */
+  omit?: Prisma.SubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubmissionInclude<ExtArgs> | null
+  where?: Prisma.SubmissionWhereInput
+  orderBy?: Prisma.SubmissionOrderByWithRelationInput | Prisma.SubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.SubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SubmissionScalarFieldEnum | Prisma.SubmissionScalarFieldEnum[]
 }
 
 /**

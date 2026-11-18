@@ -264,6 +264,7 @@ export type ProjectWhereInput = {
   deliverables?: Prisma.DeliverableListRelationFilter
   messages?: Prisma.MessageListRelationFilter
   review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null
+  submissions?: Prisma.SubmissionListRelationFilter
 }
 
 export type ProjectOrderByWithRelationInput = {
@@ -285,6 +286,7 @@ export type ProjectOrderByWithRelationInput = {
   deliverables?: Prisma.DeliverableOrderByRelationAggregateInput
   messages?: Prisma.MessageOrderByRelationAggregateInput
   review?: Prisma.ReviewOrderByWithRelationInput
+  submissions?: Prisma.SubmissionOrderByRelationAggregateInput
 }
 
 export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -309,6 +311,7 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   deliverables?: Prisma.DeliverableListRelationFilter
   messages?: Prisma.MessageListRelationFilter
   review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null
+  submissions?: Prisma.SubmissionListRelationFilter
 }, "id" | "projectCode" | "orderId">
 
 export type ProjectOrderByWithAggregationInput = {
@@ -363,6 +366,7 @@ export type ProjectCreateInput = {
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateInput = {
@@ -383,6 +387,7 @@ export type ProjectUncheckedCreateInput = {
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewUncheckedCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUpdateInput = {
@@ -403,6 +408,7 @@ export type ProjectUpdateInput = {
   deliverables?: Prisma.DeliverableUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateInput = {
@@ -423,6 +429,7 @@ export type ProjectUncheckedUpdateInput = {
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUncheckedUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyInput = {
@@ -650,6 +657,20 @@ export type ProjectUpdateOneRequiredWithoutReviewNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutReviewInput, Prisma.ProjectUpdateWithoutReviewInput>, Prisma.ProjectUncheckedUpdateWithoutReviewInput>
 }
 
+export type ProjectCreateNestedOneWithoutSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutSubmissionsInput, Prisma.ProjectUncheckedCreateWithoutSubmissionsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutSubmissionsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutSubmissionsInput, Prisma.ProjectUncheckedCreateWithoutSubmissionsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutSubmissionsInput
+  upsert?: Prisma.ProjectUpsertWithoutSubmissionsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutSubmissionsInput, Prisma.ProjectUpdateWithoutSubmissionsInput>, Prisma.ProjectUncheckedUpdateWithoutSubmissionsInput>
+}
+
 export type ProjectCreateWithoutOrderInput = {
   id?: string
   projectCode: string
@@ -667,6 +688,7 @@ export type ProjectCreateWithoutOrderInput = {
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutOrderInput = {
@@ -686,6 +708,7 @@ export type ProjectUncheckedCreateWithoutOrderInput = {
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewUncheckedCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutOrderInput = {
@@ -721,6 +744,7 @@ export type ProjectUpdateWithoutOrderInput = {
   deliverables?: Prisma.DeliverableUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutOrderInput = {
@@ -740,6 +764,7 @@ export type ProjectUncheckedUpdateWithoutOrderInput = {
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUncheckedUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutAssignmentsInput = {
@@ -759,6 +784,7 @@ export type ProjectCreateWithoutAssignmentsInput = {
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutAssignmentsInput = {
@@ -778,6 +804,7 @@ export type ProjectUncheckedCreateWithoutAssignmentsInput = {
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewUncheckedCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutAssignmentsInput = {
@@ -813,6 +840,7 @@ export type ProjectUpdateWithoutAssignmentsInput = {
   deliverables?: Prisma.DeliverableUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutAssignmentsInput = {
@@ -832,6 +860,7 @@ export type ProjectUncheckedUpdateWithoutAssignmentsInput = {
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUncheckedUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutResearchPlansInput = {
@@ -851,6 +880,7 @@ export type ProjectCreateWithoutResearchPlansInput = {
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutResearchPlansInput = {
@@ -870,6 +900,7 @@ export type ProjectUncheckedCreateWithoutResearchPlansInput = {
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewUncheckedCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutResearchPlansInput = {
@@ -905,6 +936,7 @@ export type ProjectUpdateWithoutResearchPlansInput = {
   deliverables?: Prisma.DeliverableUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutResearchPlansInput = {
@@ -924,6 +956,7 @@ export type ProjectUncheckedUpdateWithoutResearchPlansInput = {
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUncheckedUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutFieldTasksInput = {
@@ -943,6 +976,7 @@ export type ProjectCreateWithoutFieldTasksInput = {
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutFieldTasksInput = {
@@ -962,6 +996,7 @@ export type ProjectUncheckedCreateWithoutFieldTasksInput = {
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewUncheckedCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutFieldTasksInput = {
@@ -997,6 +1032,7 @@ export type ProjectUpdateWithoutFieldTasksInput = {
   deliverables?: Prisma.DeliverableUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutFieldTasksInput = {
@@ -1016,6 +1052,7 @@ export type ProjectUncheckedUpdateWithoutFieldTasksInput = {
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUncheckedUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutDatasetMetadataInput = {
@@ -1035,6 +1072,7 @@ export type ProjectCreateWithoutDatasetMetadataInput = {
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutDatasetMetadataInput = {
@@ -1054,6 +1092,7 @@ export type ProjectUncheckedCreateWithoutDatasetMetadataInput = {
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewUncheckedCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutDatasetMetadataInput = {
@@ -1089,6 +1128,7 @@ export type ProjectUpdateWithoutDatasetMetadataInput = {
   deliverables?: Prisma.DeliverableUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutDatasetMetadataInput = {
@@ -1108,6 +1148,7 @@ export type ProjectUncheckedUpdateWithoutDatasetMetadataInput = {
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUncheckedUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutDeliverablesInput = {
@@ -1127,6 +1168,7 @@ export type ProjectCreateWithoutDeliverablesInput = {
   datasetMetadata?: Prisma.DatasetMetadataCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutDeliverablesInput = {
@@ -1146,6 +1188,7 @@ export type ProjectUncheckedCreateWithoutDeliverablesInput = {
   datasetMetadata?: Prisma.DatasetMetadataUncheckedCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewUncheckedCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutDeliverablesInput = {
@@ -1181,6 +1224,7 @@ export type ProjectUpdateWithoutDeliverablesInput = {
   datasetMetadata?: Prisma.DatasetMetadataUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutDeliverablesInput = {
@@ -1200,6 +1244,7 @@ export type ProjectUncheckedUpdateWithoutDeliverablesInput = {
   datasetMetadata?: Prisma.DatasetMetadataUncheckedUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUncheckedUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutMessagesInput = {
@@ -1219,6 +1264,7 @@ export type ProjectCreateWithoutMessagesInput = {
   datasetMetadata?: Prisma.DatasetMetadataCreateNestedManyWithoutProjectInput
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutMessagesInput = {
@@ -1238,6 +1284,7 @@ export type ProjectUncheckedCreateWithoutMessagesInput = {
   datasetMetadata?: Prisma.DatasetMetadataUncheckedCreateNestedManyWithoutProjectInput
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutProjectInput
   review?: Prisma.ReviewUncheckedCreateNestedOneWithoutProjectInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutMessagesInput = {
@@ -1273,6 +1320,7 @@ export type ProjectUpdateWithoutMessagesInput = {
   datasetMetadata?: Prisma.DatasetMetadataUpdateManyWithoutProjectNestedInput
   deliverables?: Prisma.DeliverableUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutMessagesInput = {
@@ -1292,6 +1340,7 @@ export type ProjectUncheckedUpdateWithoutMessagesInput = {
   datasetMetadata?: Prisma.DatasetMetadataUncheckedUpdateManyWithoutProjectNestedInput
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutProjectNestedInput
   review?: Prisma.ReviewUncheckedUpdateOneWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutReviewInput = {
@@ -1311,6 +1360,7 @@ export type ProjectCreateWithoutReviewInput = {
   datasetMetadata?: Prisma.DatasetMetadataCreateNestedManyWithoutProjectInput
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageCreateNestedManyWithoutProjectInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutReviewInput = {
@@ -1330,6 +1380,7 @@ export type ProjectUncheckedCreateWithoutReviewInput = {
   datasetMetadata?: Prisma.DatasetMetadataUncheckedCreateNestedManyWithoutProjectInput
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutProjectInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutProjectInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutReviewInput = {
@@ -1365,6 +1416,7 @@ export type ProjectUpdateWithoutReviewInput = {
   datasetMetadata?: Prisma.DatasetMetadataUpdateManyWithoutProjectNestedInput
   deliverables?: Prisma.DeliverableUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUpdateManyWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutReviewInput = {
@@ -1384,6 +1436,103 @@ export type ProjectUncheckedUpdateWithoutReviewInput = {
   datasetMetadata?: Prisma.DatasetMetadataUncheckedUpdateManyWithoutProjectNestedInput
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutProjectNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutProjectNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutSubmissionsInput = {
+  id?: string
+  projectCode: string
+  title: string
+  status?: string
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  progress?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  order: Prisma.OrderCreateNestedOneWithoutProjectInput
+  assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutProjectInput
+  researchPlans?: Prisma.ResearchPlanCreateNestedManyWithoutProjectInput
+  fieldTasks?: Prisma.FieldTaskCreateNestedManyWithoutProjectInput
+  datasetMetadata?: Prisma.DatasetMetadataCreateNestedManyWithoutProjectInput
+  deliverables?: Prisma.DeliverableCreateNestedManyWithoutProjectInput
+  messages?: Prisma.MessageCreateNestedManyWithoutProjectInput
+  review?: Prisma.ReviewCreateNestedOneWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutSubmissionsInput = {
+  id?: string
+  projectCode: string
+  orderId: string
+  title: string
+  status?: string
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  progress?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutProjectInput
+  researchPlans?: Prisma.ResearchPlanUncheckedCreateNestedManyWithoutProjectInput
+  fieldTasks?: Prisma.FieldTaskUncheckedCreateNestedManyWithoutProjectInput
+  datasetMetadata?: Prisma.DatasetMetadataUncheckedCreateNestedManyWithoutProjectInput
+  deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutProjectInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutProjectInput
+  review?: Prisma.ReviewUncheckedCreateNestedOneWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutSubmissionsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutSubmissionsInput, Prisma.ProjectUncheckedCreateWithoutSubmissionsInput>
+}
+
+export type ProjectUpsertWithoutSubmissionsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutSubmissionsInput, Prisma.ProjectUncheckedUpdateWithoutSubmissionsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutSubmissionsInput, Prisma.ProjectUncheckedCreateWithoutSubmissionsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutSubmissionsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutSubmissionsInput, Prisma.ProjectUncheckedUpdateWithoutSubmissionsInput>
+}
+
+export type ProjectUpdateWithoutSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectCode?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  progress?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  order?: Prisma.OrderUpdateOneRequiredWithoutProjectNestedInput
+  assignments?: Prisma.ProjectAssignmentUpdateManyWithoutProjectNestedInput
+  researchPlans?: Prisma.ResearchPlanUpdateManyWithoutProjectNestedInput
+  fieldTasks?: Prisma.FieldTaskUpdateManyWithoutProjectNestedInput
+  datasetMetadata?: Prisma.DatasetMetadataUpdateManyWithoutProjectNestedInput
+  deliverables?: Prisma.DeliverableUpdateManyWithoutProjectNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutProjectNestedInput
+  review?: Prisma.ReviewUpdateOneWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectCode?: Prisma.StringFieldUpdateOperationsInput | string
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  progress?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+  researchPlans?: Prisma.ResearchPlanUncheckedUpdateManyWithoutProjectNestedInput
+  fieldTasks?: Prisma.FieldTaskUncheckedUpdateManyWithoutProjectNestedInput
+  datasetMetadata?: Prisma.DatasetMetadataUncheckedUpdateManyWithoutProjectNestedInput
+  deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutProjectNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutProjectNestedInput
+  review?: Prisma.ReviewUncheckedUpdateOneWithoutProjectNestedInput
 }
 
 
@@ -1398,6 +1547,7 @@ export type ProjectCountOutputType = {
   datasetMetadata: number
   deliverables: number
   messages: number
+  submissions: number
 }
 
 export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1407,6 +1557,7 @@ export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   datasetMetadata?: boolean | ProjectCountOutputTypeCountDatasetMetadataArgs
   deliverables?: boolean | ProjectCountOutputTypeCountDeliverablesArgs
   messages?: boolean | ProjectCountOutputTypeCountMessagesArgs
+  submissions?: boolean | ProjectCountOutputTypeCountSubmissionsArgs
 }
 
 /**
@@ -1461,6 +1612,13 @@ export type ProjectCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Type
   where?: Prisma.MessageWhereInput
 }
 
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubmissionWhereInput
+}
+
 
 export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1481,6 +1639,7 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   deliverables?: boolean | Prisma.Project$deliverablesArgs<ExtArgs>
   messages?: boolean | Prisma.Project$messagesArgs<ExtArgs>
   review?: boolean | Prisma.Project$reviewArgs<ExtArgs>
+  submissions?: boolean | Prisma.Project$submissionsArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
@@ -1535,6 +1694,7 @@ export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   deliverables?: boolean | Prisma.Project$deliverablesArgs<ExtArgs>
   messages?: boolean | Prisma.Project$messagesArgs<ExtArgs>
   review?: boolean | Prisma.Project$reviewArgs<ExtArgs>
+  submissions?: boolean | Prisma.Project$submissionsArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProjectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1555,6 +1715,7 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     deliverables: Prisma.$DeliverablePayload<ExtArgs>[]
     messages: Prisma.$MessagePayload<ExtArgs>[]
     review: Prisma.$ReviewPayload<ExtArgs> | null
+    submissions: Prisma.$SubmissionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1969,6 +2130,7 @@ export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.
   deliverables<T extends Prisma.Project$deliverablesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$deliverablesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliverablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messages<T extends Prisma.Project$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   review<T extends Prisma.Project$reviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$reviewArgs<ExtArgs>>): Prisma.Prisma__ReviewClient<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  submissions<T extends Prisma.Project$submissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2569,6 +2731,30 @@ export type Project$reviewArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   include?: Prisma.ReviewInclude<ExtArgs> | null
   where?: Prisma.ReviewWhereInput
+}
+
+/**
+ * Project.submissions
+ */
+export type Project$submissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Submission
+   */
+  select?: Prisma.SubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Submission
+   */
+  omit?: Prisma.SubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubmissionInclude<ExtArgs> | null
+  where?: Prisma.SubmissionWhereInput
+  orderBy?: Prisma.SubmissionOrderByWithRelationInput | Prisma.SubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.SubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SubmissionScalarFieldEnum | Prisma.SubmissionScalarFieldEnum[]
 }
 
 /**

@@ -100,12 +100,20 @@ export default function TeamProjectDetail() {
         <h1 className="mb-6 text-2xl font-bold">
           Project Tasks &amp; Deliverables
         </h1>
-        <Link
-          href={`/team/projects/${params.id}/deliverables/new`}
-          className="mb-6 inline-block rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700"
-        >
-          Upload Deliverable
-        </Link>
+        <div className="mb-6 flex flex-wrap gap-3">
+          <Link
+            href={`/team/projects/${params.id}/deliverables/new`}
+            className="inline-block rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700"
+          >
+            Upload Deliverable
+          </Link>
+          <Link
+            href={`/team/projects/${params.id}/submissions/new`}
+            className="inline-block rounded bg-slate-700 px-4 py-2 text-sm text-white hover:bg-slate-800"
+          >
+            Submit Work
+          </Link>
+        </div>
 
         <div className="mb-6 rounded bg-white p-4 shadow">
           <h2 className="mb-3 font-semibold">Field Tasks</h2>

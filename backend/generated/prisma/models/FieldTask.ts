@@ -224,6 +224,7 @@ export type FieldTaskWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"FieldTask"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   surveyResponses?: Prisma.SurveyResponseListRelationFilter
+  submissions?: Prisma.SubmissionListRelationFilter
 }
 
 export type FieldTaskOrderByWithRelationInput = {
@@ -239,6 +240,7 @@ export type FieldTaskOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
   surveyResponses?: Prisma.SurveyResponseOrderByRelationAggregateInput
+  submissions?: Prisma.SubmissionOrderByRelationAggregateInput
 }
 
 export type FieldTaskWhereUniqueInput = Prisma.AtLeast<{
@@ -257,6 +259,7 @@ export type FieldTaskWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"FieldTask"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   surveyResponses?: Prisma.SurveyResponseListRelationFilter
+  submissions?: Prisma.SubmissionListRelationFilter
 }, "id">
 
 export type FieldTaskOrderByWithAggregationInput = {
@@ -303,6 +306,7 @@ export type FieldTaskCreateInput = {
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutFieldTasksInput
   surveyResponses?: Prisma.SurveyResponseCreateNestedManyWithoutFieldTaskInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutTaskInput
 }
 
 export type FieldTaskUncheckedCreateInput = {
@@ -317,6 +321,7 @@ export type FieldTaskUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   surveyResponses?: Prisma.SurveyResponseUncheckedCreateNestedManyWithoutFieldTaskInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutTaskInput
 }
 
 export type FieldTaskUpdateInput = {
@@ -331,6 +336,7 @@ export type FieldTaskUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutFieldTasksNestedInput
   surveyResponses?: Prisma.SurveyResponseUpdateManyWithoutFieldTaskNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutTaskNestedInput
 }
 
 export type FieldTaskUncheckedUpdateInput = {
@@ -345,6 +351,7 @@ export type FieldTaskUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   surveyResponses?: Prisma.SurveyResponseUncheckedUpdateManyWithoutFieldTaskNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutTaskNestedInput
 }
 
 export type FieldTaskCreateManyInput = {
@@ -439,6 +446,11 @@ export type FieldTaskScalarRelationFilter = {
   isNot?: Prisma.FieldTaskWhereInput
 }
 
+export type FieldTaskNullableScalarRelationFilter = {
+  is?: Prisma.FieldTaskWhereInput | null
+  isNot?: Prisma.FieldTaskWhereInput | null
+}
+
 export type FieldTaskCreateNestedManyWithoutProjectInput = {
   create?: Prisma.XOR<Prisma.FieldTaskCreateWithoutProjectInput, Prisma.FieldTaskUncheckedCreateWithoutProjectInput> | Prisma.FieldTaskCreateWithoutProjectInput[] | Prisma.FieldTaskUncheckedCreateWithoutProjectInput[]
   connectOrCreate?: Prisma.FieldTaskCreateOrConnectWithoutProjectInput | Prisma.FieldTaskCreateOrConnectWithoutProjectInput[]
@@ -495,6 +507,22 @@ export type FieldTaskUpdateOneRequiredWithoutSurveyResponsesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FieldTaskUpdateToOneWithWhereWithoutSurveyResponsesInput, Prisma.FieldTaskUpdateWithoutSurveyResponsesInput>, Prisma.FieldTaskUncheckedUpdateWithoutSurveyResponsesInput>
 }
 
+export type FieldTaskCreateNestedOneWithoutSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.FieldTaskCreateWithoutSubmissionsInput, Prisma.FieldTaskUncheckedCreateWithoutSubmissionsInput>
+  connectOrCreate?: Prisma.FieldTaskCreateOrConnectWithoutSubmissionsInput
+  connect?: Prisma.FieldTaskWhereUniqueInput
+}
+
+export type FieldTaskUpdateOneWithoutSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.FieldTaskCreateWithoutSubmissionsInput, Prisma.FieldTaskUncheckedCreateWithoutSubmissionsInput>
+  connectOrCreate?: Prisma.FieldTaskCreateOrConnectWithoutSubmissionsInput
+  upsert?: Prisma.FieldTaskUpsertWithoutSubmissionsInput
+  disconnect?: Prisma.FieldTaskWhereInput | boolean
+  delete?: Prisma.FieldTaskWhereInput | boolean
+  connect?: Prisma.FieldTaskWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FieldTaskUpdateToOneWithWhereWithoutSubmissionsInput, Prisma.FieldTaskUpdateWithoutSubmissionsInput>, Prisma.FieldTaskUncheckedUpdateWithoutSubmissionsInput>
+}
+
 export type FieldTaskCreateWithoutProjectInput = {
   id?: string
   title: string
@@ -506,6 +534,7 @@ export type FieldTaskCreateWithoutProjectInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   surveyResponses?: Prisma.SurveyResponseCreateNestedManyWithoutFieldTaskInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutTaskInput
 }
 
 export type FieldTaskUncheckedCreateWithoutProjectInput = {
@@ -519,6 +548,7 @@ export type FieldTaskUncheckedCreateWithoutProjectInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   surveyResponses?: Prisma.SurveyResponseUncheckedCreateNestedManyWithoutFieldTaskInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutTaskInput
 }
 
 export type FieldTaskCreateOrConnectWithoutProjectInput = {
@@ -574,6 +604,7 @@ export type FieldTaskCreateWithoutSurveyResponsesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutFieldTasksInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutTaskInput
 }
 
 export type FieldTaskUncheckedCreateWithoutSurveyResponsesInput = {
@@ -587,6 +618,7 @@ export type FieldTaskUncheckedCreateWithoutSurveyResponsesInput = {
   dueDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutTaskInput
 }
 
 export type FieldTaskCreateOrConnectWithoutSurveyResponsesInput = {
@@ -616,6 +648,7 @@ export type FieldTaskUpdateWithoutSurveyResponsesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutFieldTasksNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutTaskNestedInput
 }
 
 export type FieldTaskUncheckedUpdateWithoutSurveyResponsesInput = {
@@ -629,6 +662,79 @@ export type FieldTaskUncheckedUpdateWithoutSurveyResponsesInput = {
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutTaskNestedInput
+}
+
+export type FieldTaskCreateWithoutSubmissionsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  location?: string | null
+  assignedTo?: string | null
+  status?: string
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutFieldTasksInput
+  surveyResponses?: Prisma.SurveyResponseCreateNestedManyWithoutFieldTaskInput
+}
+
+export type FieldTaskUncheckedCreateWithoutSubmissionsInput = {
+  id?: string
+  projectId: string
+  title: string
+  description?: string | null
+  location?: string | null
+  assignedTo?: string | null
+  status?: string
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  surveyResponses?: Prisma.SurveyResponseUncheckedCreateNestedManyWithoutFieldTaskInput
+}
+
+export type FieldTaskCreateOrConnectWithoutSubmissionsInput = {
+  where: Prisma.FieldTaskWhereUniqueInput
+  create: Prisma.XOR<Prisma.FieldTaskCreateWithoutSubmissionsInput, Prisma.FieldTaskUncheckedCreateWithoutSubmissionsInput>
+}
+
+export type FieldTaskUpsertWithoutSubmissionsInput = {
+  update: Prisma.XOR<Prisma.FieldTaskUpdateWithoutSubmissionsInput, Prisma.FieldTaskUncheckedUpdateWithoutSubmissionsInput>
+  create: Prisma.XOR<Prisma.FieldTaskCreateWithoutSubmissionsInput, Prisma.FieldTaskUncheckedCreateWithoutSubmissionsInput>
+  where?: Prisma.FieldTaskWhereInput
+}
+
+export type FieldTaskUpdateToOneWithWhereWithoutSubmissionsInput = {
+  where?: Prisma.FieldTaskWhereInput
+  data: Prisma.XOR<Prisma.FieldTaskUpdateWithoutSubmissionsInput, Prisma.FieldTaskUncheckedUpdateWithoutSubmissionsInput>
+}
+
+export type FieldTaskUpdateWithoutSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedTo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutFieldTasksNestedInput
+  surveyResponses?: Prisma.SurveyResponseUpdateManyWithoutFieldTaskNestedInput
+}
+
+export type FieldTaskUncheckedUpdateWithoutSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedTo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  surveyResponses?: Prisma.SurveyResponseUncheckedUpdateManyWithoutFieldTaskNestedInput
 }
 
 export type FieldTaskCreateManyProjectInput = {
@@ -654,6 +760,7 @@ export type FieldTaskUpdateWithoutProjectInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   surveyResponses?: Prisma.SurveyResponseUpdateManyWithoutFieldTaskNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutTaskNestedInput
 }
 
 export type FieldTaskUncheckedUpdateWithoutProjectInput = {
@@ -667,6 +774,7 @@ export type FieldTaskUncheckedUpdateWithoutProjectInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   surveyResponses?: Prisma.SurveyResponseUncheckedUpdateManyWithoutFieldTaskNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutTaskNestedInput
 }
 
 export type FieldTaskUncheckedUpdateManyWithoutProjectInput = {
@@ -688,10 +796,12 @@ export type FieldTaskUncheckedUpdateManyWithoutProjectInput = {
 
 export type FieldTaskCountOutputType = {
   surveyResponses: number
+  submissions: number
 }
 
 export type FieldTaskCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   surveyResponses?: boolean | FieldTaskCountOutputTypeCountSurveyResponsesArgs
+  submissions?: boolean | FieldTaskCountOutputTypeCountSubmissionsArgs
 }
 
 /**
@@ -711,6 +821,13 @@ export type FieldTaskCountOutputTypeCountSurveyResponsesArgs<ExtArgs extends run
   where?: Prisma.SurveyResponseWhereInput
 }
 
+/**
+ * FieldTaskCountOutputType without action
+ */
+export type FieldTaskCountOutputTypeCountSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubmissionWhereInput
+}
+
 
 export type FieldTaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -725,6 +842,7 @@ export type FieldTaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   updatedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   surveyResponses?: boolean | Prisma.FieldTask$surveyResponsesArgs<ExtArgs>
+  submissions?: boolean | Prisma.FieldTask$submissionsArgs<ExtArgs>
   _count?: boolean | Prisma.FieldTaskCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fieldTask"]>
 
@@ -773,6 +891,7 @@ export type FieldTaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type FieldTaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   surveyResponses?: boolean | Prisma.FieldTask$surveyResponsesArgs<ExtArgs>
+  submissions?: boolean | Prisma.FieldTask$submissionsArgs<ExtArgs>
   _count?: boolean | Prisma.FieldTaskCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FieldTaskIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -787,6 +906,7 @@ export type $FieldTaskPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   objects: {
     project: Prisma.$ProjectPayload<ExtArgs>
     surveyResponses: Prisma.$SurveyResponsePayload<ExtArgs>[]
+    submissions: Prisma.$SubmissionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1195,6 +1315,7 @@ export interface Prisma__FieldTaskClient<T, Null = never, ExtArgs extends runtim
   readonly [Symbol.toStringTag]: "PrismaPromise"
   project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   surveyResponses<T extends Prisma.FieldTask$surveyResponsesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieldTask$surveyResponsesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  submissions<T extends Prisma.FieldTask$submissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieldTask$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1656,6 +1777,30 @@ export type FieldTask$surveyResponsesArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.SurveyResponseScalarFieldEnum | Prisma.SurveyResponseScalarFieldEnum[]
+}
+
+/**
+ * FieldTask.submissions
+ */
+export type FieldTask$submissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Submission
+   */
+  select?: Prisma.SubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Submission
+   */
+  omit?: Prisma.SubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubmissionInclude<ExtArgs> | null
+  where?: Prisma.SubmissionWhereInput
+  orderBy?: Prisma.SubmissionOrderByWithRelationInput | Prisma.SubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.SubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SubmissionScalarFieldEnum | Prisma.SubmissionScalarFieldEnum[]
 }
 
 /**
