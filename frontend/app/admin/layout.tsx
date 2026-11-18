@@ -82,7 +82,8 @@ export default function AdminLayout({
     { label: "Overview", href: "/admin", icon: "📊" },
     { label: "Requests", href: "/admin/requests-list", icon: "📝" },
     { label: "Projects", href: "/admin/projects", icon: "📁" },
-    { label: "Team", href: "/admin/team", icon: "👥" },
+    { label: "Team Members", href: "/admin/team", icon: "👥" },
+    { label: "Teams", href: "/admin/teams", icon: "🏢" },
   ]
 
   return (
