@@ -31,6 +31,35 @@ export class ProjectController {
     }
   }
 
+  static async getAdminProjectDetail(req: AuthRequest, res: Response) {
+    try {
+      const project = await ProjectService.getProjectDetailForAdmin(
+        String(req.params.id),
+      );
+      if (!project) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Project not found" });
+      }
+      return res.status(200).json({ success: true, data: project });
+    } catch (error: any) {
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  }
+
+  static async adminUpdate(req: AuthRequest, res: Response) {
+    try {
+      const { status, progress, dueDate } = req.body;
+      const project = await ProjectService.adminUpdateProject(
+        String(req.params.id),
+        { status, progress, dueDate },
+      );
+      return res.status(200).json({ success: true, data: project });
+    } catch (error: any) {
+      return res.status(400).json({ success: false, message: error.message });
+    }
+  }
+
   static async assignTeam(req: AuthRequest, res: Response) {
     try {
       const { projectId, userId, role } = req.body;

@@ -102,7 +102,7 @@ export default function AdminProjectsPage() {
                 href={`/admin/projects/${project.id}`}
                 className="mt-3 inline-block text-sm text-blue-600 hover:underline"
               >
-                Manage Team →
+                View Details →
               </Link>
             </div>
           ))}

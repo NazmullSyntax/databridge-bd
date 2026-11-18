@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useState, type FormEvent } from "react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 type Member = {
@@ -332,6 +333,12 @@ export default function AdminTeamPage() {
                   </span>
                 </td>
                 <td className="px-6 py-4">
+                  <Link
+                    href={`/admin/team/${member.id}`}
+                    className="mr-3 text-sm text-blue-600 hover:underline"
+                  >
+                    View
+                  </Link>
                   <button
                     type="button"
                     disabled={togglingMemberId !== null}

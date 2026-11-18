@@ -64,6 +64,54 @@ export class ProjectService {
     });
   }
 
+  // অ্যাডমিনের জন্য একটি প্রজেক্টের সম্পূর্ণ বিস্তারিত
+  static async getProjectDetailForAdmin(projectId: string) {
+    return prisma.project.findUnique({
+      where: { id: projectId },
+      include: {
+        order: {
+          include: {
+            quotation: {
+              include: {
+                request: {
+                  include: {
+                    customer: {
+                      select: { fullName: true, email: true, phone: true },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        assignments: {
+          include: {
+            user: {
+              select: { id: true, fullName: true, email: true, phone: true },
+            },
+          },
+        },
+        fieldTasks: true,
+        deliverables: true,
+      },
+    });
+  }
+
+  // অ্যাডমিন প্রজেক্টের স্ট্যাটাস ও প্রগ্রেস আপডেট করতে পারবে
+  static async adminUpdateProject(
+    projectId: string,
+    data: { status?: string; progress?: number; dueDate?: string },
+  ) {
+    return prisma.project.update({
+      where: { id: projectId },
+      data: {
+        ...(data.status && { status: data.status }),
+        ...(data.progress !== undefined && { progress: data.progress }),
+        ...(data.dueDate && { dueDate: new Date(data.dueDate) }),
+      },
+    });
+  }
+
   // টিম মেম্বার অ্যাসাইন করা
   static async assignTeamMember(
     projectId: string,

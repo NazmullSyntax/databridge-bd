@@ -95,6 +95,33 @@ export class AdminController {
     }
   }
 
+  static async getMemberDetail(req: AuthRequest, res: Response) {
+    try {
+      const user = await prisma.user.findUnique({
+        where: { id: String(req.params.id) },
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+          phone: true,
+          isActive: true,
+          createdAt: true,
+          profile: true,
+        },
+      });
+
+      if (!user) {
+        return res
+          .status(404)
+          .json({ success: false, message: "User not found" });
+      }
+
+      return res.status(200).json({ success: true, data: user });
+    } catch (error: any) {
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  }
+
   static async toggleMemberStatus(req: AuthRequest, res: Response) {
     try {
       const id = String(req.params.id);

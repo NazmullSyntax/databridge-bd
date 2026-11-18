@@ -17,6 +17,12 @@ router.get("/my", ProjectController.getMyProjects);
 router.post("/", authorize("ADMIN"), ProjectController.createProject);
 router.get("/", authorize("ADMIN"), ProjectController.getAllProjects);
 router.post("/assign", authorize("ADMIN"), ProjectController.assignTeam);
+router.get(
+  "/admin/:id",
+  authorize("ADMIN"),
+  ProjectController.getAdminProjectDetail,
+);
+router.patch("/admin/:id", authorize("ADMIN"), ProjectController.adminUpdate);
 
 // ADMIN ও TEAM
 router.patch(
