@@ -53,6 +53,8 @@ model User {
   auditLogs         AuditLog[]
   assignments       ProjectAssignment[]
   reviews           Review[]
+  ledTeams          Team[]              @relation("TeamLeader")
+  teamMembers       TeamMember[]        @relation("TeamMembers")
 
   @@map("users")
 }
@@ -479,4 +481,39 @@ model AuditLog {
   @@index([action])
   @@index([createdAt])
   @@map("audit_logs")
+}
+
+// ============================================================
+// 24. TEAM
+// ============================================================
+model Team {
+  id          String       @id @default(uuid())
+  name        String
+  description String?
+  department  String?
+  leaderId    String?
+  leader      User?        @relation("TeamLeader", fields: [leaderId], references: [id])
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  members     TeamMember[]
+
+  @@map("teams")
+}
+
+// ============================================================
+// 25. TEAM MEMBER
+// ============================================================
+model TeamMember {
+  id       String   @id @default(uuid())
+  teamId   String
+  team     Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User     @relation("TeamMembers", fields: [userId], references: [id])
+  role     String   @default("MEMBER") // MEMBER, LEAD, CO_LEAD
+  joinedAt DateTime @default(now())
+
+  @@unique([teamId, userId])
+  @@map("team_members")
 }
