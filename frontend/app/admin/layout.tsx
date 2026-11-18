@@ -30,6 +30,7 @@ export default function AdminLayout({
 }) {
   const router = useRouter()
   const pathname = usePathname()
+  const isMainAdmin = pathname === "/admin"
   const [user, setUser] = useState<AdminUser | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -143,6 +144,22 @@ export default function AdminLayout({
       </aside>
 
       <main className="flex-1 overflow-y-auto">
+        <header className="sticky top-0 z-10 border-b border-slate-200 bg-white p-4">
+          <div className="mx-auto flex max-w-5xl items-center gap-4">
+            {!isMainAdmin && (
+              <button
+                type="button"
+                onClick={() => router.back()}
+                className="rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600 hover:text-slate-900"
+              >
+                ← Back
+              </button>
+            )}
+            <h1 className="text-xl font-bold text-slate-900">
+              DataBridge BD - Admin
+            </h1>
+          </div>
+        </header>
         <div className="mx-auto max-w-5xl p-8">{children}</div>
       </main>
     </div>
