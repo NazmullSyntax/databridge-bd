@@ -1,168 +1,70 @@
-"use client"
-
-import { useEffect, useState } from "react"
-import Link from "next/link"
-
-type DashboardUser = {
-  fullName: string
-}
-
-type DashboardStats = {
-  requests: number
-  projects: number
-}
+import { FileText, Briefcase, MessageSquare, Clock } from "lucide-react";
 
 export default function DashboardOverview() {
-  const [stats, setStats] = useState<DashboardStats>({
-    requests: 0,
-    projects: 0,
-  })
-  const [user, setUser] = useState<DashboardUser | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState("")
-
-  useEffect(() => {
-    const userStr = localStorage.getItem("user")
-    if (userStr) {
-      try {
-        const parsedUser: unknown = JSON.parse(userStr)
-        if (
-          typeof parsedUser === "object" &&
-          parsedUser !== null &&
-          "fullName" in parsedUser &&
-          typeof parsedUser.fullName === "string"
-        ) {
-          setUser({ fullName: parsedUser.fullName })
-        }
-      } catch {
-        setError("Could not read the signed-in user.")
-      }
-    }
-
-    const token = localStorage.getItem("token")
-    if (!token) {
-      setError("Please sign in to view your dashboard.")
-      setLoading(false)
-      return
-    }
-
-    const apiUrl =
-      process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
-
-    const fetchStats = async () => {
-      try {
-        const [requestRes, projectRes] = await Promise.all([
-          fetch(`${apiUrl}/requests/my`, {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          fetch(`${apiUrl}/projects/customer/my`, {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-        ])
-        const [requestData, projectData] = await Promise.all([
-          requestRes.json(),
-          projectRes.json(),
-        ])
-
-        if (!requestRes.ok || !requestData.success) {
-          throw new Error(requestData.message || "Failed to load requests")
-        }
-        if (!projectRes.ok || !projectData.success) {
-          throw new Error(projectData.message || "Failed to load projects")
-        }
-        if (
-          !Array.isArray(requestData.data) ||
-          !Array.isArray(projectData.data)
-        ) {
-          throw new Error("The dashboard returned invalid statistics.")
-        }
-
-        setStats({
-          requests: requestData.data.length,
-          projects: projectData.data.length,
-        })
-      } catch (err: unknown) {
-        setError(
-          err instanceof Error
-            ? err.message
-            : "Failed to load dashboard statistics",
-        )
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchStats()
-  }, [])
-
-  const firstName = user?.fullName.split(" ")[0] || "User"
-
   return (
-    <div>
-      <h1 className="mb-2 text-3xl font-bold text-slate-900">
-        Welcome back, {firstName}! 👋
-      </h1>
-      <p className="mb-8 text-slate-500">
-        Here is what&apos;s happening with your projects today.
-      </p>
-
-      {error && (
-        <div
-          role="alert"
-          className="mb-6 rounded-lg bg-red-50 p-4 text-sm text-red-700"
-        >
-          {error}
-        </div>
-      )}
-
-      <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-        <div className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-slate-500">
-                Total Requests
-              </p>
-              <p className="mt-1 text-3xl font-bold text-slate-900">
-                {loading ? "…" : stats.requests}
-              </p>
-            </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-2xl">
-              📝
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-slate-500">
-                Active Projects
-              </p>
-              <p className="mt-1 text-3xl font-bold text-slate-900">
-                {loading ? "…" : stats.projects}
-              </p>
-            </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-50 text-2xl">
-              📁
-            </div>
-          </div>
-        </div>
+    <div className="max-w-6xl mx-auto space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-[#102A43]">Welcome back, Customer!</h1>
+        <p className="text-[#64748B] text-sm mt-1">Here&apos;s what&apos;s happening with your account.</p>
       </div>
 
-      <div className="rounded-xl border border-slate-100 bg-white p-8 text-center shadow-sm">
-        <h2 className="mb-2 text-lg font-semibold text-slate-900">
-          Need more data?
-        </h2>
-        <p className="mb-4 text-slate-500">
-          Submit a new request and our team will get back to you.
-        </p>
-        <Link
-          href="/dashboard/requests/new"
-          className="inline-block rounded-lg bg-blue-600 px-6 py-2.5 font-medium text-white transition hover:bg-blue-700"
-        >
-          + New Data Request
-        </Link>
+      {/* Stat Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {[
+          { label: "Total Requests", value: "3", icon: <FileText className="text-cyan-600" />, bg: "bg-cyan-50" },
+          { label: "Active Projects", value: "2", icon: <Briefcase className="text-blue-600" />, bg: "bg-blue-50" },
+          { label: "Unread Messages", value: "5", icon: <MessageSquare className="text-purple-600" />, bg: "bg-purple-50" },
+          { label: "Pending Invoices", value: "1", icon: <Clock className="text-orange-600" />, bg: "bg-orange-50" },
+        ].map((stat, i) => (
+          <div key={i} className="bg-white p-6 rounded-xl border border-[#E2E8F0] shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <div className={`w-10 h-10 ${stat.bg} rounded-lg flex items-center justify-center`}>
+                {stat.icon}
+              </div>
+              <span className="text-sm font-medium text-[#64748B]">{stat.label}</span>
+            </div>
+            <p className="text-3xl font-bold text-[#102A43]">{stat.value}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Recent Projects */}
+      <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-sm">
+        <div className="p-6 border-b border-[#E2E8F0] flex justify-between items-center">
+          <h2 className="text-lg font-bold text-[#102A43]">Recent Projects</h2>
+          <button type="button" className="text-sm font-semibold text-blue-600 hover:text-blue-700">View All</button>
+        </div>
+        <div className="divide-y divide-[#E2E8F0]">
+          {[
+            { title: "Market Research in Dhaka", status: "In Progress", date: "Due Apr 30, 2025", progress: 70 },
+            { title: "NGO Survey Project", status: "In Progress", date: "Due May 5, 2025", progress: 40 },
+            { title: "Business Data Analysis", status: "Completed", date: "Apr 10, 2025", progress: 100 },
+          ].map((project, i) => (
+            <div key={i} className="p-6 flex items-center justify-between hover:bg-[#F8FAFC] transition-colors">
+              <div>
+                <h3 className="font-semibold text-[#102A43]">{project.title}</h3>
+                <p className="text-sm text-[#64748B] mt-1">{project.date}</p>
+              </div>
+              <div className="flex items-center gap-4">
+                <span className={`text-xs px-3 py-1 rounded-full font-medium ${
+                  project.status === "Completed" ? "bg-green-100 text-green-700" : "bg-cyan-100 text-cyan-700"
+                }`}>
+                  {project.status}
+                </span>
+                <div className="w-32">
+                  <div className="bg-gray-200 rounded-full h-2">
+                    <div 
+                      className={`h-2 rounded-full ${project.progress === 100 ? "bg-green-500" : "bg-cyan-500"}`} 
+                      style={{ width: `${project.progress}%` }} 
+                    />
+                  </div>
+                  <p className="text-xs text-[#64748B] mt-1 text-right">{project.progress}%</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-  )
+  );
 }

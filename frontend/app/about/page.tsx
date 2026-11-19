@@ -3,7 +3,7 @@ import { Target, Eye, Shield, Users } from "lucide-react"
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
-      <section className="relative overflow-hidden bg-[#061A35] pt-32 pb-20">
+      <section className="relative overflow-hidden bg-[#061A35] pt-20 pb-20">
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
           <h1 className="mb-6 text-4xl font-bold text-white md:text-5xl">
             About DataBridge BD

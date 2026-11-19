@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export default function Header() {
   return (
-    <header className="absolute top-0 z-50 w-full border-b border-white/10 bg-[#061A35]/80 text-white backdrop-blur-md">
+    <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#061A35]/95 text-white backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <Link href="/" className="text-2xl font-bold tracking-tight">
           DataBridge<span className="text-cyan-400">BD</span>

@@ -48,7 +48,7 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-[#061A35] pt-32 pb-20 text-center">
+      <section className="relative overflow-hidden bg-[#061A35] pt-20 pb-20 text-center">
         {/* Tailwind Class Suggestion ঠিক করা হয়েছে: w-200, h-100 */}
         <div className="pointer-events-none absolute top-0 left-1/2 h-100 w-200 -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[100px]" />
 

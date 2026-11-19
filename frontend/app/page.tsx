@@ -1,39 +1,19 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, CheckCircle2, ShieldCheck, Map, Database } from "lucide-react";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#F8FAFC] font-sans selection:bg-cyan-200">
       
-      {/* 1. Navbar (ডার্ক নেভি) */}
-      <header className="absolute top-0 w-full z-50 text-white border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold tracking-tight">
-            DataBridge<span className="text-cyan-400">BD</span>
-          </Link>
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-gray-300">
-            <Link href="/" className="text-white">Home</Link>
-            <Link href="/services" className="hover:text-white transition">Services</Link>
-            <Link href="/solutions" className="hover:text-white transition">Solutions</Link>
-            <Link href="/how-it-works" className="hover:text-white transition">How It Works</Link>
-            <Link href="/portfolio" className="hover:text-white transition">Portfolio</Link>
-            <Link href="/about" className="hover:text-white transition">About</Link>
-            <Link href="/contact" className="hover:text-white transition">Contact</Link>
-          </nav>
-          <div className="flex items-center gap-4">
-            <Link href="/login" className="text-sm font-medium hover:text-white transition">Login</Link>
-            <Link href="/request" className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold text-sm px-5 py-2.5 rounded-md transition-all glow-effect">
-              Tell Us What You Need
-            </Link>
-          </div>
-        </div>
-      </header>
+      {/* 
+        এখানে আগের Header টি মুছে ফেলা হয়েছে, 
+        কারণ এটি এখন layout.tsx থেকে গ্লোবালি আসছে।
+      */}
 
-      {/* 2. Hero Section (গ্লোয়িং ম্যাপ ও গ্লাস কার্ড) */}
-      <section className="relative bg-[#061A35] pt-32 pb-24 overflow-hidden">
+      {/* 1. Hero Section (গ্লোয়িং ম্যাপ ও গ্লাস কার্ড) */}
+      <section className="relative bg-[#061A35] pt-20 pb-24 overflow-hidden">
         {/* Background Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="max-w-3xl">
@@ -129,7 +109,7 @@ export default function Home() {
                 </div>
                 <p className="text-sm font-semibold text-[#102A43]">{step}</p>
                 {i < 5 && (
-                  <div className="hidden lg:block absolute top-10 left-[60%] w-full h-[2px] bg-[#E2E8F0]">
+                  <div className="hidden lg:block absolute top-10 left-[60%] w-full h-0.5 bg-[#E2E8F0]">
                     <ArrowRight className="absolute right-0 top-1/2 -translate-y-1/2 text-[#E2E8F0]" size={16} />
                   </div>
                 )}
@@ -186,48 +166,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* 7. Footer */}
-      <footer className="bg-[#0B2548] text-white py-16 border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div>
-            <Link href="/" className="text-2xl font-bold mb-4 block">
-              DataBridge<span className="text-cyan-400">BD</span>
-            </Link>
-            <p className="text-sm text-gray-400 leading-relaxed">
-              Managed data collection, research, and analytics services for a data-driven Bangladesh.
-            </p>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Services</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
-              <li><Link href="/services/field" className="hover:text-cyan-400">Field Data Collection</Link></li>
-              <li><Link href="/services/market" className="hover:text-cyan-400">Market Research</Link></li>
-              <li><Link href="/services/survey" className="hover:text-cyan-400">Survey & Questionnaire</Link></li>
-              <li><Link href="/services/data" className="hover:text-cyan-400">Data Analysis</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
-              <li><Link href="/about" className="hover:text-cyan-400">About Us</Link></li>
-              <li><Link href="/how-it-works" className="hover:text-cyan-400">How It Works</Link></li>
-              <li><Link href="/portfolio" className="hover:text-cyan-400">Portfolio</Link></li>
-              <li><Link href="/contact" className="hover:text-cyan-400">Contact Us</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Legal</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
-              <li><Link href="/privacy" className="hover:text-cyan-400">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-cyan-400">Terms & Conditions</Link></li>
-            </ul>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/10 text-center text-sm text-gray-500">
-          © 2026 DataBridge BD. All rights reserved.
-        </div>
-      </footer>
+      
     </div>
   );
 }
