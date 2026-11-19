@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Lock, ArrowRight } from "lucide-react";
+import { Mail, Lock, ArrowRight, ArrowLeft } from "lucide-react";
 
 export default function LoginPage() {
   return (
@@ -20,6 +20,14 @@ export default function LoginPage() {
             <Link href="/" className="text-2xl font-bold text-[#102A43]">
               DataBridge<span className="text-cyan-500">BD</span>
             </Link>
+            <div className="mb-6 mt-4 text-left">
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 text-sm font-medium text-[#64748B] transition-colors hover:text-[#102A43]"
+              >
+                <ArrowLeft size={16} /> Back to Home
+              </Link>
+            </div>
             <h1 className="text-xl font-semibold text-[#102A43] mt-4">Welcome Back</h1>
             <p className="text-sm text-[#64748B] mt-1">Enter your credentials to access your portal.</p>
           </div>
