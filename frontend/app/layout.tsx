@@ -2,8 +2,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import Header from "@/components/layout/Header"
-import Footer from "@/components/layout/Footer"
+import LayoutWrapper from "@/components/layout/LayoutWrapper"
 import { cn } from "@/lib/utils";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'})
@@ -27,9 +26,7 @@ export default function RootLayout({
     >
       <body className={cn(inter.className, "flex min-h-screen flex-col")}>
         <ThemeProvider>
-          <Header />
-          <main className="grow pt-20">{children}</main>
-          <Footer />
+          <LayoutWrapper>{children}</LayoutWrapper>
         </ThemeProvider>
       </body>
     </html>
