@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation"
 import Header from "./Header"
 import Footer from "./Footer"
+import FloatingChat from "./FloatingChat"
 
 export default function LayoutWrapper({
   children,
@@ -15,10 +16,11 @@ export default function LayoutWrapper({
   const isAuthPage = pathname === "/login" || pathname === "/register"
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="relative flex min-h-screen flex-col">
       {!isAuthPage && <Header />}
       <main className={`grow ${!isAuthPage ? "pt-20" : ""}`}>{children}</main>
       {!isAuthPage && <Footer />}
+      {!isAuthPage && <FloatingChat />}
     </div>
   )
 }
