@@ -15,13 +15,6 @@ export class MessageService {
         OR: [
           { order: { customerId: senderId } },
           { assignments: { some: { userId: senderId } } },
-          {
-            order: {
-              customer: {
-                role: { name: "ADMIN" }, // Admin সব প্রজেক্টে অ্যাক্সেস পাবে
-              },
-            },
-          },
         ],
       },
     });
