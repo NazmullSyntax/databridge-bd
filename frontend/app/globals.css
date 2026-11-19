@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @layer base {
   :root {
@@ -9,24 +7,26 @@
   }
 
   body {
-    @apply bg-[#F8FAFC] text-[#102A43] antialiased;
-    font-family: 'Inter', sans-serif;
+    background-color: #F8FAFC;
+    color: #102A43;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
-@layer utilities {
-  /* হিরো সেকশনের জন্য গ্লাসমরফিজম ইফেক্ট */
-  .glass-card {
-    @apply bg-white/5 backdrop-blur-md border border-white/10;
-  }
-  
-  /* ডার্ক সেকশনের জন্য টেক্সট গ্রেডিয়েন্ট */
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500;
-  }
-  
-  /* গ্লো ইফেক্ট */
-  .glow-effect {
-    box-shadow: 0 0 40px rgba(34, 211, 238, 0.2);
-  }
+/* কাস্টম ইউটিলিটি ক্লাস (গ্লাস ইফেক্টের জন্য) */
+@utility glass-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@utility text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to right, #22d3ee, #3b82f6);
+}
+
+@utility glow-effect {
+  box-shadow: 0 0 40px rgba(34, 211, 238, 0.2);
 }
